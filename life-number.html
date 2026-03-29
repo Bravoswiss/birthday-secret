@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Life Number · Numérologie · 生命数字</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A84C;--gold-light:#E8D5A3;--gold-dim:#8B6E32;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;min-height:100vh;background:#0F0C07;font-family:'Noto Serif SC','Playfair Display',Georgia,serif;}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 0%,#2A1F0A 0%,#0F0C07 60%);}
+.bg::before{content:'';position:absolute;inset:0;background-image:
+  radial-gradient(1px 1px at 15% 20%,rgba(201,168,76,.6) 0%,transparent 100%),
+  radial-gradient(1.5px 1.5px at 72% 8%,rgba(201,168,76,.5) 0%,transparent 100%),
+  radial-gradient(1px 1px at 38% 35%,rgba(201,168,76,.4) 0%,transparent 100%),
+  radial-gradient(1.5px 1.5px at 85% 25%,rgba(201,168,76,.7) 0%,transparent 100%),
+  radial-gradient(1px 1px at 55% 55%,rgba(201,168,76,.3) 0%,transparent 100%),
+  radial-gradient(1px 1px at 10% 65%,rgba(201,168,76,.4) 0%,transparent 100%),
+  radial-gradient(1px 1px at 92% 70%,rgba(201,168,76,.5) 0%,transparent 100%),
+  radial-gradient(1px 1px at 28% 80%,rgba(201,168,76,.3) 0%,transparent 100%),
+  radial-gradient(1px 1px at 60% 90%,rgba(201,168,76,.4) 0%,transparent 100%);}
+
+/* LANG SWITCHER */
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:center;gap:6px;padding:10px 16px;
+  background:linear-gradient(to bottom,rgba(15,12,7,.95),rgba(15,12,7,.0));}
+.lang-btn{padding:5px 14px;border-radius:20px;font-size:12px;cursor:pointer;
+  border:1px solid rgba(201,168,76,.25);background:rgba(201,168,76,.07);
+  color:rgba(201,168,76,.6);transition:all .2s;letter-spacing:.05em;font-family:inherit;}
+.lang-btn.active{background:rgba(201,168,76,.2);border-color:rgba(201,168,76,.5);color:var(--gold-light);}
+.lang-btn:active{transform:scale(.95);}
+
+.screen{display:none;position:relative;z-index:1;min-height:100vh;padding:0 0 70px;}
+.screen.active{display:block;}
+
+/* INTRO */
+#s0{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:60px 28px 40px;animation:fadeIn .8s ease;}
+.logo-ring{width:110px;height:110px;border-radius:50%;border:1px solid rgba(201,168,76,.4);
+  display:flex;align-items:center;justify-content:center;margin-bottom:28px;position:relative;}
+.logo-ring::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(201,168,76,.15);}
+.logo-ring::after{content:'';position:absolute;inset:-16px;border-radius:50%;border:1px dashed rgba(201,168,76,.08);}
+.logo-n{font-family:'Playfair Display',serif;font-size:52px;color:var(--gold);font-style:italic;}
+.intro-title{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold-light);text-align:center;line-height:1.3;margin-bottom:8px;}
+.intro-sub{font-size:13px;color:rgba(201,168,76,.55);letter-spacing:.12em;text-align:center;margin-bottom:16px;}
+.dorn{color:rgba(201,168,76,.3);font-size:18px;letter-spacing:8px;margin:4px 0 16px;}
+.intro-desc{font-size:14px;color:rgba(242,234,216,.6);text-align:center;line-height:1.9;max-width:300px;margin-bottom:44px;}
+.btn-start{width:220px;height:52px;border-radius:26px;background:linear-gradient(135deg,#C9A84C,#8B6E32);
+  border:none;cursor:pointer;font-family:inherit;font-size:16px;color:#1A1208;font-weight:600;
+  letter-spacing:.1em;box-shadow:0 4px 24px rgba(201,168,76,.25);transition:opacity .2s,transform .15s;}
+.btn-start:active{opacity:.85;transform:scale(.97);}
+
+/* INPUT */
+#s1{padding:70px 28px 80px;animation:slideUp .5s ease;}
+.ph{text-align:center;margin-bottom:36px;}
+.ph h2{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold-light);margin-bottom:6px;}
+.ph p{font-size:12px;color:rgba(201,168,76,.45);letter-spacing:.08em;}
+.ilabel{font-size:12px;color:rgba(201,168,76,.6);letter-spacing:.08em;margin-bottom:10px;display:block;}
+.igroup{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:28px;}
+.field input,.nfield input{width:100%;height:52px;background:rgba(201,168,76,.07);
+  border:1px solid rgba(201,168,76,.25);border-radius:8px;color:var(--gold-light);
+  font-family:inherit;font-size:17px;text-align:center;outline:none;
+  transition:border-color .2s;-webkit-appearance:none;}
+.field input:focus,.nfield input:focus{border-color:rgba(201,168,76,.6);}
+.field input::placeholder,.nfield input::placeholder{color:rgba(201,168,76,.25);font-size:14px;}
+.fhint{text-align:center;font-size:11px;color:rgba(201,168,76,.35);margin-top:5px;}
+.nfield{margin-bottom:28px;}
+.nfield input{padding:0 16px;}
+.oln{display:flex;align-items:center;gap:12px;margin:32px 0 28px;}
+.oln::before,.oln::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.3),transparent);}
+.oln span{font-size:14px;color:rgba(201,168,76,.4);}
+.btn-calc{width:100%;height:54px;border-radius:27px;background:linear-gradient(135deg,#C9A84C,#8B6E32);
+  border:none;cursor:pointer;font-family:inherit;font-size:16px;color:#1A1208;font-weight:600;
+  letter-spacing:.1em;box-shadow:0 4px 24px rgba(201,168,76,.3);transition:opacity .2s,transform .15s;}
+.btn-calc:active{opacity:.85;transform:scale(.98);}
+
+/* RESULT */
+#s2{padding:50px 20px 80px;animation:slideUp .5s ease;}
+.r-hero{text-align:center;margin-bottom:28px;}
+.r-name{font-size:14px;color:rgba(201,168,76,.6);letter-spacing:.1em;margin-bottom:16px;}
+.num-row{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:16px;}
+.nb{width:64px;height:64px;border-radius:50%;background:rgba(201,168,76,.1);
+  border:1px solid rgba(201,168,76,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.nb.main{width:96px;height:96px;background:radial-gradient(circle at 40% 35%,rgba(201,168,76,.22),rgba(201,168,76,.06));
+  border:1.5px solid var(--gold);box-shadow:0 0 28px rgba(201,168,76,.15),inset 0 0 18px rgba(201,168,76,.05);}
+.nb-n{font-family:'Playfair Display',serif;font-size:32px;color:var(--gold);}
+.nb.main .nb-n{font-size:48px;}
+.nb-t{font-size:9px;color:rgba(201,168,76,.5);letter-spacing:.04em;margin-top:1px;}
+.arr{font-size:16px;color:rgba(201,168,76,.3);}
+.r-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold-light);margin-bottom:5px;}
+.r-kw{font-size:12px;color:rgba(201,168,76,.5);letter-spacing:.15em;}
+
+.card{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:18px;margin-bottom:12px;}
+.ct{font-size:11px;color:var(--gold);letter-spacing:.15em;margin-bottom:10px;font-weight:600;}
+.cb{font-size:14px;color:rgba(242,234,216,.78);line-height:1.9;}
+.cb strong{color:var(--gold-light);font-weight:600;}
+
+.dc{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);border-radius:12px;padding:18px;margin-bottom:12px;}
+.dct{font-size:11px;color:var(--gold);letter-spacing:.15em;margin-bottom:12px;font-weight:600;}
+.dcols{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.dcl{font-size:10px;color:rgba(201,168,76,.5);letter-spacing:.08em;margin-bottom:5px;font-weight:600;}
+.dct2{font-size:13px;color:rgba(242,234,216,.72);line-height:1.85;}
+
+.dna-card{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.22);border-radius:12px;padding:18px;margin-bottom:12px;}
+.dna-title{font-size:11px;color:var(--gold);letter-spacing:.15em;margin-bottom:14px;font-weight:600;}
+.dna-formula{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.dna-chip{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:56px;height:56px;border-radius:50%;border:1px solid rgba(201,168,76,.4);background:rgba(201,168,76,.1);}
+.dna-chip.big{width:72px;height:72px;border:1.5px solid var(--gold);background:rgba(201,168,76,.15);}
+.dna-chip-n{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);}
+.dna-chip.big .dna-chip-n{font-size:28px;}
+.dna-chip-t{font-size:9px;color:rgba(201,168,76,.5);margin-top:1px;text-align:center;}
+.dna-plus{font-size:18px;color:rgba(201,168,76,.3);}
+.dna-eq{font-size:18px;color:rgba(201,168,76,.4);}
+.dna-row{margin-bottom:14px;}
+.dna-row:last-child{margin-bottom:0;}
+.dna-num-label{font-size:11px;color:var(--gold);letter-spacing:.08em;margin-bottom:5px;display:flex;align-items:center;gap:6px;}
+.dna-num-badge{width:20px;height:20px;border-radius:50%;background:rgba(201,168,76,.15);
+  border:1px solid rgba(201,168,76,.4);display:inline-flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:11px;color:var(--gold);}
+.dna-text{font-size:13px;color:rgba(242,234,216,.75);line-height:1.85;}
+.dna-text strong{color:var(--gold-light);}
+.dna-combo-box{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);
+  border-radius:8px;padding:12px 14px;margin-top:10px;}
+.dna-combo-title{font-size:10px;color:rgba(201,168,76,.6);letter-spacing:.1em;margin-bottom:6px;font-weight:600;}
+.dna-combo-text{font-size:13px;color:rgba(242,234,216,.78);line-height:1.85;}
+.dna-combo-text strong{color:var(--gold-light);}
+
+.grid-card{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.22);border-radius:12px;padding:18px;margin-bottom:12px;}
+.grid-title{font-size:11px;color:var(--gold);letter-spacing:.15em;margin-bottom:14px;font-weight:600;}
+.grid-layout{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;}
+.palace{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;flex-shrink:0;}
+.pc{width:56px;height:50px;border:1px solid rgba(201,168,76,.2);border-radius:6px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:rgba(201,168,76,.04);position:relative;}
+.pc.active{background:rgba(201,168,76,.14);border-color:rgba(201,168,76,.45);}
+.pc-pos{position:absolute;top:3px;left:5px;font-size:9px;color:rgba(201,168,76,.3);}
+.pc-dots{font-size:12px;color:var(--gold);font-weight:600;line-height:1;}
+.pc-count{font-size:9px;color:rgba(201,168,76,.4);margin-top:1px;}
+.grid-lines{flex:1;min-width:150px;}
+.line-item{margin-bottom:10px;}
+.line-item:last-child{margin-bottom:0;}
+.line-header{display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;}
+.line-badge{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;white-space:nowrap;}
+.line-has{background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.4);color:var(--gold-light);}
+.line-missing{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:rgba(242,234,216,.35);}
+.line-name{font-size:11px;color:rgba(201,168,76,.6);}
+.line-desc{font-size:12px;color:rgba(242,234,216,.6);line-height:1.7;}
+.line-power{font-size:11px;color:rgba(201,168,76,.45);margin-top:2px;font-style:italic;line-height:1.6;}
+.missing-note{margin-top:12px;padding:10px 12px;background:rgba(201,168,76,.06);
+  border-left:2px solid rgba(201,168,76,.3);border-radius:0 6px 6px 0;}
+.missing-note-title{font-size:10px;color:rgba(201,168,76,.5);letter-spacing:.08em;margin-bottom:4px;}
+.missing-note-text{font-size:12px;color:rgba(242,234,216,.6);line-height:1.7;}
+
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;}
+.tag{padding:4px 12px;border-radius:20px;font-size:11px;border:1px solid rgba(201,168,76,.3);
+  color:rgba(201,168,76,.8);background:rgba(201,168,76,.08);}
+
+.adv-list{list-style:none;}
+.adv-list li{padding:12px 0;border-bottom:1px solid rgba(201,168,76,.1);display:flex;gap:12px;align-items:flex-start;}
+.adv-list li:last-child{border-bottom:none;}
+.adv-num{font-family:'Playfair Display',serif;font-size:15px;color:var(--gold-dim);flex-shrink:0;padding-top:2px;}
+.adv-body strong{display:block;font-size:13px;color:var(--gold-light);margin-bottom:3px;}
+.adv-body span{font-size:13px;color:rgba(242,234,216,.62);line-height:1.75;}
+
+.compat-label{font-size:10px;color:rgba(201,168,76,.4);letter-spacing:.08em;margin-top:12px;margin-bottom:6px;}
+.compat-row{display:flex;gap:7px;flex-wrap:wrap;}
+.compat-best{padding:4px 12px;border-radius:20px;font-size:11px;background:rgba(201,168,76,.15);
+  border:1px solid rgba(201,168,76,.4);color:var(--gold-light);}
+.compat-good{padding:4px 12px;border-radius:20px;font-size:11px;background:rgba(201,168,76,.07);
+  border:1px solid rgba(201,168,76,.2);color:rgba(201,168,76,.7);}
+
+.sec-label{font-size:11px;color:rgba(201,168,76,.4);letter-spacing:.15em;text-align:center;margin:24px 0 14px;}
+
+.share-card{border-radius:14px;position:relative;
+  background:linear-gradient(160deg,#1A1208 0%,#0F0C07 50%,#1A1208 100%);
+  border:1px solid rgba(201,168,76,.3);padding:28px 22px 24px;overflow:hidden;}
+.share-card::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(201,168,76,.08) 0%,transparent 60%);pointer-events:none;}
+.sc{position:absolute;width:20px;height:20px;border-color:rgba(201,168,76,.4);border-style:solid;}
+.sc.tl{top:10px;left:10px;border-width:1px 0 0 1px;}
+.sc.tr{top:10px;right:10px;border-width:1px 1px 0 0;}
+.sc.bl{bottom:10px;left:10px;border-width:0 0 1px 1px;}
+.sc.br{bottom:10px;right:10px;border-width:0 1px 1px 0;}
+.sapp{font-size:10px;color:rgba(201,168,76,.4);letter-spacing:.15em;text-align:center;margin-bottom:12px;}
+.snum{font-family:'Playfair Display',serif;font-size:68px;color:var(--gold);line-height:1;text-align:center;}
+.snl{font-size:10px;color:rgba(201,168,76,.5);letter-spacing:.15em;text-align:center;margin-bottom:7px;}
+.sname{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold-light);text-align:center;margin-bottom:3px;}
+.skw{font-size:11px;color:rgba(201,168,76,.5);letter-spacing:.15em;text-align:center;}
+.sdiv{height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.3),transparent);margin:14px 0;}
+.sbubs{display:flex;justify-content:center;gap:12px;margin:10px 0;}
+.sb{width:44px;height:44px;border-radius:50%;border:1px solid rgba(201,168,76,.35);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(201,168,76,.07);}
+.sb-n{font-family:'Playfair Display',serif;font-size:17px;color:var(--gold);line-height:1;}
+.sb-t{font-size:8px;color:rgba(201,168,76,.4);margin-top:1px;}
+.squote{font-size:12px;color:rgba(201,168,76,.62);text-align:center;line-height:1.85;font-style:italic;padding:0 8px;margin-bottom:12px;}
+.sfooter{text-align:center;font-size:10px;color:rgba(201,168,76,.3);letter-spacing:.1em;}
+.btn-share{width:100%;height:50px;border-radius:25px;margin-top:12px;
+  background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4);
+  color:var(--gold-light);font-family:inherit;font-size:15px;cursor:pointer;letter-spacing:.06em;}
+.btn-share:active{background:rgba(201,168,76,.2);}
+.btn-again{width:100%;height:44px;border-radius:22px;margin-top:10px;
+  background:transparent;border:1px solid rgba(201,168,76,.2);
+  color:rgba(201,168,76,.5);font-family:inherit;font-size:14px;cursor:pointer;}
+
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:rgba(201,168,76,.9);color:#1A1208;padding:10px 22px;border-radius:20px;
+  font-size:14px;font-weight:600;z-index:999;opacity:0;pointer-events:none;transition:all .3s;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<!-- LANGUAGE BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('zh')">中文</button>
+  <button class="lang-btn" onclick="setLang('en')">English</button>
+  <button class="lang-btn" onclick="setLang('fr')">Français</button>
+</div>
+
+<div class="screen active" id="s0">
+  <div class="logo-ring"><span class="logo-n">∞</span></div>
+  <div class="intro-title" id="i-title"></div>
+  <div class="intro-sub" id="i-sub"></div>
+  <div class="dorn">✦ ✦ ✦</div>
+  <div class="intro-desc" id="i-desc"></div>
+  <button class="btn-start" id="i-btn" onclick="go(1)"></button>
+</div>
+
+<div class="screen" id="s1">
+  <div class="ph"><h2 id="in-title"></h2><p id="in-sub"></p></div>
+  <span class="ilabel" id="in-datelabel"></span>
+  <div class="igroup">
+    <div class="field"><input type="number" id="year" inputmode="numeric"><div class="fhint" id="in-y"></div></div>
+    <div class="field"><input type="number" id="month" min="1" max="12" inputmode="numeric"><div class="fhint" id="in-m"></div></div>
+    <div class="field"><input type="number" id="day" min="1" max="31" inputmode="numeric"><div class="fhint" id="in-d"></div></div>
+  </div>
+  <span class="ilabel" id="in-namelabel"></span>
+  <div class="nfield"><input type="text" id="uname" id="in-nameplaceholder"></div>
+  <div class="oln"><span>✦</span></div>
+  <button class="btn-calc" id="in-calcbtn" onclick="calculate()"></button>
+</div>
+
+<div class="screen" id="s2"><div id="rc"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// LANGUAGE DATA
+// ══════════════════════════════════════════════════════
+let LANG = 'zh';
+
+const UI = {
+  zh:{
+    introTitle:"生命数字密码",introSub:"NUMEROLOGY · 命运解码",
+    introDesc:"每个人的生日，都藏着一段独特的宇宙密码。\n数字揭示你的天赋、挑战与人生使命，\n帮你看清自己，读懂他人。",
+    introBtn:"开始解码 →",
+    inputTitle:"输入你的生日",inputSub:"请使用公历（阳历）日期",
+    dateLabel:"✦ 出生年月日",y:"年",m:"月",d:"日",
+    nameLabel:"✦ 你的姓名（选填）",namePH:"输入姓名，让解读更有温度",
+    calcBtn:"解码我的命运数字",
+    labelDNA:"✦ 原生天赋 DNA · 你独有的能量结构",
+    labelCore:"✦ 生命数 · 核心能量解读",
+    labelGiftShadow:"✦ 天赋优势 与 人生课题",
+    labelGift:"▲ 天赋与优势",labelShadow:"▽ 挑战与阴影",
+    labelGrid:"✦ 九宫格连线分析 · 你的生日能量地图",
+    gridNote:"● = 生日中出现的数字 / ×2·×3 = 出现次数（能量加倍）",
+    labelRelation:"✦ 人际关系模式",
+    labelCareer:"✦ 事业方向 与 财富密码",
+    labelCareerCol:"事业方向",labelWealthCol:"财富模式",
+    labelAdvice:"— 给你的四条生命建议 —",
+    labelShare:"— 分享你的命运数字 —",
+    shareAppName:"生命数字密码 · NUMEROLOGY",shareLifeNum:"生命数",
+    shareBtn:"截图保存，分享朋友圈 ✦",againBtn:"为朋友再测一次",
+    bestCompat:"最佳契合数字",goodCompat:"良好相处数字",
+    toastShare:"长按海报截图，发送朋友圈 ✨",
+    errFill:"请填写完整的出生日期 ✦",errYear:"请输入有效的出生年份",errMonth:"月份应在 1-12 之间",errDay:"日期应在 1-31 之间",
+    missingTitle:"✦ 生日中缺失的数字：",missingAll:"✦ 你的生日包含了多个数字，能量较为完整",
+    missingAllNote:"你的生命数字覆盖面广，各方面能量相对均衡，成长重点在于深化而非补缺。",
+    giftLabel:"天赋：",shadowLabel:"挑战：",keyLabel:"关键词：",
+    labelNum1:"数字",labelNum2:"的能量",
+    lineHas:"完整",lineMiss:"缺失",
+  },
+  en:{
+    introTitle:"Life Number Code",introSub:"NUMEROLOGY · Decode Your Destiny",
+    introDesc:"Your birthday holds a unique cosmic code.\nNumbers reveal your gifts, challenges, and life mission,\nhelping you understand yourself and others.",
+    introBtn:"Start Decoding →",
+    inputTitle:"Enter Your Birthday",inputSub:"Please use the Gregorian calendar",
+    dateLabel:"✦ Date of Birth",y:"Year",m:"Month",d:"Day",
+    nameLabel:"✦ Your Name (optional)",namePH:"Add your name for a personal reading",
+    calcBtn:"Decode My Numbers",
+    labelDNA:"✦ Original Talent DNA · Your Unique Energy Structure",
+    labelCore:"✦ Life Number · Core Energy Reading",
+    labelGiftShadow:"✦ Natural Gifts & Life Challenges",
+    labelGift:"▲ Gifts & Strengths",labelShadow:"▽ Challenges & Shadow",
+    labelGrid:"✦ Nine-Palace Grid · Your Birthday Energy Map",
+    gridNote:"● = digit present in birthday / ×2·×3 = repeated (amplified energy)",
+    labelRelation:"✦ Relationship Patterns",
+    labelCareer:"✦ Career Direction & Wealth Code",
+    labelCareerCol:"Career Path",labelWealthCol:"Wealth Pattern",
+    labelAdvice:"— Four Life Guidance Tips For You —",
+    labelShare:"— Share Your Destiny Number —",
+    shareAppName:"Life Number Code · NUMEROLOGY",shareLifeNum:"Life Number",
+    shareBtn:"Screenshot & Share ✦",againBtn:"Read for a Friend",
+    bestCompat:"Best Compatible Numbers",goodCompat:"Good Match Numbers",
+    toastShare:"Long-press to screenshot and share ✨",
+    errFill:"Please fill in your complete birth date ✦",errYear:"Please enter a valid birth year",errMonth:"Month must be between 1 and 12",errDay:"Day must be between 1 and 31",
+    missingTitle:"✦ Digits missing from your birthday: ",missingAll:"✦ Your birthday contains many digits — your energy is relatively complete",
+    missingAllNote:"Your life numbers cover a broad range. Your growth focus is on deepening existing strengths rather than filling gaps.",
+    giftLabel:"Gift: ",shadowLabel:"Challenge: ",keyLabel:"Key: ",
+    labelNum1:"Number ",labelNum2:" energy",
+    lineHas:"Active",lineMiss:"Absent",
+  },
+  fr:{
+    introTitle:"Code des Nombres de Vie",introSub:"NUMÉROLOGIE · Décodez votre Destin",
+    introDesc:"Votre date de naissance cache un code cosmique unique.\nLes nombres révèlent vos dons, défis et mission de vie,\nvous aidant à mieux vous comprendre et comprendre les autres.",
+    introBtn:"Commencer →",
+    inputTitle:"Entrez votre date de naissance",inputSub:"Utilisez le calendrier grégorien",
+    dateLabel:"✦ Date de naissance",y:"Année",m:"Mois",d:"Jour",
+    nameLabel:"✦ Votre prénom (optionnel)",namePH:"Ajoutez votre prénom pour une lecture personnalisée",
+    calcBtn:"Décoder mes nombres",
+    labelDNA:"✦ ADN de Talent Originel · Votre structure énergétique unique",
+    labelCore:"✦ Nombre de Vie · Lecture de l'énergie centrale",
+    labelGiftShadow:"✦ Dons naturels & Défis de vie",
+    labelGift:"▲ Dons & Forces",labelShadow:"▽ Défis & Ombre",
+    labelGrid:"✦ Grille des Neuf Palais · Carte énergétique de votre naissance",
+    gridNote:"● = chiffre présent dans la date / ×2·×3 = répété (énergie amplifiée)",
+    labelRelation:"✦ Schémas relationnels",
+    labelCareer:"✦ Orientation professionnelle & Code de richesse",
+    labelCareerCol:"Voie professionnelle",labelWealthCol:"Schéma de richesse",
+    labelAdvice:"— Quatre conseils de vie pour vous —",
+    labelShare:"— Partagez votre nombre de destin —",
+    shareAppName:"Code des Nombres de Vie · NUMÉROLOGIE",shareLifeNum:"Nombre de Vie",
+    shareBtn:"Capturer & Partager ✦",againBtn:"Lire pour un ami",
+    bestCompat:"Nombres les plus compatibles",goodCompat:"Bonnes affinités",
+    toastShare:"Appuyez longuement pour capturer et partager ✨",
+    errFill:"Veuillez remplir votre date de naissance complète ✦",errYear:"Veuillez entrer une année de naissance valide",errMonth:"Le mois doit être entre 1 et 12",errDay:"Le jour doit être entre 1 et 31",
+    missingTitle:"✦ Chiffres absents de votre anniversaire : ",missingAll:"✦ Votre date de naissance contient de nombreux chiffres — votre énergie est relativement complète",
+    missingAllNote:"Vos nombres de vie couvrent un large spectre. Votre croissance se concentre sur l'approfondissement plutôt que le comblement.",
+    giftLabel:"Don : ",shadowLabel:"Défi : ",keyLabel:"Clé : ",
+    labelNum1:"Nombre ",labelNum2:" énergie",
+    lineHas:"Actif",lineMiss:"Absent",
+  }
+};
+
+// ══════════════════════════════════════════════════════
+// SINGLE-DIGIT ENERGY (trilingual)
+// ══════════════════════════════════════════════════════
+const NUM = {
+  zh:{
+    1:{name:"独立",gift:"天生领袖，勇于开拓，执行力强",shadow:"固执己见，难以妥协，孤僻独行"},
+    2:{name:"感知",gift:"细腻敏感，善于聆听，是天生的调解者",shadow:"依赖认可，优柔寡断，自我边界模糊"},
+    3:{name:"创意",gift:"创意无限，口才出众，能点亮任何场合",shadow:"三分钟热度，情绪化，难以深耕"},
+    4:{name:"稳定",gift:"可靠务实，擅长将计划落地，是团队基石",shadow:"过于保守，抵触变化，可能显得刻板"},
+    5:{name:"自由",gift:"灵活善变，适应力强，天生销售与沟通高手",shadow:"厌倦承诺，注意力分散，难以持续专注"},
+    6:{name:"责任",gift:"同理心深，守护者本能，创造温暖凝聚的环境",shadow:"过度付出，把自我价值绑定在被需要上"},
+    7:{name:"智慧",gift:"思维深刻，直觉精准，能看透表象背后的本质",shadow:"过于封闭，不信任他人，容易陷入孤独悲观"},
+    8:{name:"权力",gift:"战略视野强，商业嗅觉天然，能掌控复杂系统",shadow:"控制欲强，忽视情感，物质主义倾向"},
+    9:{name:"圆满",gift:"格局广阔，感召力强，综合能力出众",shadow:"目标分散，难以专注，博爱有时替代了深度"}
+  },
+  en:{
+    1:{name:"Independence",gift:"Natural leader, pioneer spirit, strong executive power",shadow:"Stubborn, difficulty compromising, tendency toward isolation"},
+    2:{name:"Perception",gift:"Deeply empathetic, excellent listener, natural peacemaker",shadow:"Dependent on approval, indecisive, weak personal boundaries"},
+    3:{name:"Creativity",gift:"Boundless creativity, gifted communicator, lights up any room",shadow:"Short attention span, emotional volatility, difficulty going deep"},
+    4:{name:"Stability",gift:"Reliable and practical, excels at executing plans, the team's cornerstone",shadow:"Overly cautious, resists change, can appear rigid"},
+    5:{name:"Freedom",gift:"Highly adaptable, flexible thinker, natural salesperson and communicator",shadow:"Fears commitment, scattered attention, difficulty sustaining focus"},
+    6:{name:"Responsibility",gift:"Deep empathy, natural protector, creates warmth and cohesion",shadow:"Over-gives, ties self-worth to being needed"},
+    7:{name:"Wisdom",gift:"Profound thinker, precise intuition, sees beyond appearances",shadow:"Overly closed-off, distrustful, prone to loneliness and pessimism"},
+    8:{name:"Power",gift:"Strong strategic vision, natural business instinct, masters complex systems",shadow:"Controlling, overlooks emotions, materialistic tendencies"},
+    9:{name:"Completion",gift:"Broad perspective, magnetic charisma, outstanding all-round abilities",shadow:"Scattered goals, difficulty focusing, love sometimes replaces depth"}
+  },
+  fr:{
+    1:{name:"Indépendance",gift:"Leader naturel, esprit pionnier, forte capacité d'action",shadow:"Têtu, difficultés à compromettre, tendance à l'isolement"},
+    2:{name:"Perception",gift:"Profondément empathique, excellent auditeur, pacificateur naturel",shadow:"Dépendant de l'approbation, indécis, frontières personnelles floues"},
+    3:{name:"Créativité",gift:"Créativité sans limites, communicant talentueux, illumine chaque pièce",shadow:"Attention dispersée, volatilité émotionnelle, difficulté à approfondir"},
+    4:{name:"Stabilité",gift:"Fiable et pragmatique, excellente exécution, pierre angulaire de l'équipe",shadow:"Trop prudent, résiste au changement, peut sembler rigide"},
+    5:{name:"Liberté",gift:"Très adaptable, pensée flexible, vendeur et communicant naturel",shadow:"Peur de l'engagement, attention dispersée, difficulté à maintenir la concentration"},
+    6:{name:"Responsabilité",gift:"Grande empathie, protecteur naturel, crée chaleur et cohésion",shadow:"Donne trop, lie sa valeur au fait d'être nécessaire"},
+    7:{name:"Sagesse",gift:"Penseur profond, intuition précise, voit au-delà des apparences",shadow:"Trop fermé, méfiant, enclin à la solitude et au pessimisme"},
+    8:{name:"Pouvoir",gift:"Vision stratégique forte, instinct commercial naturel, maîtrise les systèmes complexes",shadow:"Contrôlant, néglige les émotions, tendances matérialistes"},
+    9:{name:"Accomplissement",gift:"Perspective large, charisme magnétique, capacités polyvalentes remarquables",shadow:"Objectifs dispersés, difficulté à se concentrer, l'amour remplace parfois la profondeur"}
+  }
+};
+
+// ══════════════════════════════════════════════════════
+// COMBO LIBRARY (trilingual — key combos only)
+// ══════════════════════════════════════════════════════
+const COMBO = {
+  zh:{
+    "26":{title:"26/8 · 关怀驱动的权力掌控者",text:"2（感知关系）与6（责任关怀）共同指向8（成就权力）。这让你成为一种特殊的领导者——<strong>你的权力欲不是纯粹为了自己</strong>，而是带着一种深层的责任感：我要做强，是因为我要保护和照顾我在乎的人。这让你比纯粹的8号人更有人情温度，但也更容易因为情感投入而在商业决策中丧失客观。",key:"有温度的权力 · 情感与决断的平衡"},
+    "17":{title:"17/8 · 灵性与物质的整合者",text:"1（开创）与7（灵性洞察）共同指向8（成就）。你的成功不能只靠蛮力，必须融入直觉与内在洞察。当你信任那个\"说不清道不明\"的内在声音，你的商业与领导力会达到常人难以企及的高度。",key:"直觉驱动的领导力"},
+    "35":{title:"35/8 · 创意变现的实力派",text:"3（创意表达）与5（变化适应）指向8（成就权力）。你有能力把想法变成影响力，把创意变成财富。你不是单纯的艺术家，也不是单纯的商人——你是那种能把\"有趣\"变成\"有价值\"的人。",key:"创意商业化 · 把灵感变成成就"},
+    "44":{title:"44/8 · 超级建造者与成就者",text:"44是顶级天赋数，被称为\"超级建造者\"。双重4的踏实执行加上8的权力成就，意味着你有能力创建真正持久的、大规模的事业或系统。你的挑战不是能力，而是敢不敢把目标定得足够大。",key:"超级建造者 · 大规模实现愿景"},
+    "22":{title:"22/4 · 大师建造者",text:"22是最强的天赋数之一，被称为\"大师数\"。双重2的敏感与直觉，落地为4的实干力，意味着你有能力将宏大的愿景变成现实。你的人生课题不是\"能不能做到\"，而是\"敢不敢梦得足够大\"。",key:"大师建造者 · 将愿景变现实"},
+    "11":{title:"11/2 · 双重直觉的感知者",text:"11是强力灵性数，双重1的叠加让你的直觉近乎第六感。你对人心和场域的感应极为敏锐，有时甚至让你自己感到不安。你的功课是学会相信自己感受到的，而不是被它淹没。",key:"灵性直觉 · 精神敏感体质"},
+    "33":{title:"33/6 · 大师教师与守护者",text:"33被称为\"大师教师数\"，是最高层级的天赋数之一。双重3的创造与表达，落地为6的关怀责任，意味着你天生有感召与教化他人的能力。你的人生使命可能比你目前想象的更宏大。",key:"大师教师 · 感召与启发他人"},
+    "default":{title:"天赋数的组合能量",text:"你的天赋数是两种单数能量的叠加与融合——这两种能量互相影响，共同塑造了你独特的性格底色和人生课题。",key:"复合能量结构"}
+  },
+  en:{
+    "26":{title:"26/8 · Power Driven by Compassion",text:"2 (relational perception) and 6 (responsibility and care) converge toward 8 (power and achievement). This makes you a distinctive kind of leader — <strong>your drive for power isn't purely self-serving</strong>; it comes from a deep sense of responsibility: you want to be strong so you can protect and care for those you love. This gives you more warmth than a typical 8, but also makes you vulnerable to losing objectivity in business when emotions run high.",key:"Warm power · Balancing heart and decisiveness"},
+    "17":{title:"17/8 · Integrator of Spirit and Matter",text:"1 (pioneering) and 7 (spiritual insight) converge toward 8 (achievement). Your success cannot rely on force alone — it must be infused with intuition and inner knowing. When you trust that quiet, inexplicable inner voice, your leadership and business acumen can reach heights few can match.",key:"Intuition-driven leadership"},
+    "35":{title:"35/8 · Creative Achiever",text:"3 (creative expression) and 5 (adaptability) converge toward 8 (power and achievement). You have the ability to turn ideas into influence and creativity into wealth. You're neither purely an artist nor purely a businessperson — you're someone who can make \"interesting\" become \"valuable\".",key:"Monetizing creativity · Turning inspiration into achievement"},
+    "44":{title:"44/8 · Master Builder and Achiever",text:"44 is one of the highest talent numbers, known as the 'Master Builder'. Double 4's solid execution combined with 8's achievement drive means you have the capacity to build truly lasting, large-scale ventures. Your challenge isn't capability — it's daring to set goals big enough.",key:"Master Builder · Realizing vision at scale"},
+    "22":{title:"22/4 · Master Builder",text:"22 is one of the most powerful talent numbers, known as a 'Master Number'. The sensitivity and intuition of double 2, grounded by 4's practical strength, means you can turn grand visions into reality. Your life lesson isn't 'can I do it' — it's 'dare I dream big enough'.",key:"Master Builder · Making vision real"},
+    "11":{title:"11/2 · Double Intuitive Perceiver",text:"11 is a powerful spiritual number. The doubling of 1 gives you intuition that approaches a sixth sense. Your sensitivity to people and environments is extraordinarily acute, sometimes unsettling even to yourself. Your lesson is to trust what you sense, not be overwhelmed by it.",key:"Spiritual intuition · Highly sensitive nature"},
+    "33":{title:"33/6 · Master Teacher and Guardian",text:"33 is known as the 'Master Teacher' number, one of the highest-level talent numbers. Double 3's creativity and expression, grounded by 6's nurturing responsibility, means you have a natural gift for inspiring and educating others. Your life mission may be far greater than you currently imagine.",key:"Master Teacher · Inspiring and uplifting others"},
+    "default":{title:"Combined Talent Energy",text:"Your talent number is the fusion of two single-digit energies — they influence each other and together shape your unique character foundation and life lessons.",key:"Composite energy structure"}
+  },
+  fr:{
+    "26":{title:"26/8 · Le Pouvoir guidé par la Compassion",text:"2 (perception relationnelle) et 6 (responsabilité et soin) convergent vers 8 (pouvoir et réussite). Cela fait de vous un leader distinctif — <strong>votre quête de pouvoir n'est pas purement égoïste</strong> ; elle provient d'un profond sens des responsabilités : vous voulez être fort pour protéger et prendre soin de ceux que vous aimez. Cela vous donne plus de chaleur qu'un 8 typique, mais vous rend aussi vulnérable à perdre l'objectivité en affaires.",key:"Pouvoir chaleureux · Équilibrer le cœur et la décision"},
+    "17":{title:"17/8 · Intégrateur d'Esprit et de Matière",text:"1 (pionnier) et 7 (perspicacité spirituelle) convergent vers 8 (réussite). Votre succès ne peut pas reposer sur la force brute — il doit être infusé d'intuition et de connaissance intérieure. Quand vous faites confiance à cette voix intérieure silencieuse, votre leadership peut atteindre des sommets que peu peuvent égaler.",key:"Leadership guidé par l'intuition"},
+    "35":{title:"35/8 · Réalisateur Créatif",text:"3 (expression créative) et 5 (adaptabilité) convergent vers 8 (pouvoir et réussite). Vous avez la capacité de transformer des idées en influence et la créativité en richesse. Vous n'êtes ni purement artiste ni purement homme d'affaires — vous êtes quelqu'un qui peut rendre \"intéressant\" \"précieux\".",key:"Monétiser la créativité · Transformer l'inspiration en réussite"},
+    "44":{title:"44/8 · Grand Constructeur et Réalisateur",text:"44 est l'un des nombres de talent les plus élevés, connu comme le 'Grand Constructeur'. La double exécution solide du 4 combinée à la force de réalisation du 8 signifie que vous avez la capacité de construire des entreprises vraiment durables et à grande échelle.",key:"Grand Constructeur · Réaliser la vision à grande échelle"},
+    "22":{title:"22/4 · Maître Constructeur",text:"22 est l'un des nombres de talent les plus puissants, connu comme un 'Nombre Maître'. La sensibilité et l'intuition du double 2, ancrées par la force pratique du 4, signifient que vous pouvez transformer de grandes visions en réalité.",key:"Maître Constructeur · Concrétiser la vision"},
+    "11":{title:"11/2 · Double Percepteur Intuitif",text:"11 est un puissant nombre spirituel. Le doublement du 1 vous donne une intuition qui approche un sixième sens. Votre sensibilité aux personnes et aux environnements est extraordinairement aiguë. Votre leçon est de faire confiance à ce que vous ressentez, sans vous laisser submerger.",key:"Intuition spirituelle · Nature très sensible"},
+    "33":{title:"33/6 · Maître Enseignant et Gardien",text:"33 est connu comme le nombre du 'Maître Enseignant'. Le double 3 créatif et expressif, ancré par la responsabilité nourricière du 6, signifie que vous avez un don naturel pour inspirer et éduquer les autres.",key:"Maître Enseignant · Inspirer et élever les autres"},
+    "default":{title:"Énergie de Talent Combinée",text:"Votre nombre de talent est la fusion de deux énergies à un chiffre — elles s'influencent mutuellement et façonnent ensemble le fond unique de votre caractère.",key:"Structure énergétique composite"}
+  }
+};
+
+// ══════════════════════════════════════════════════════
+// LIFE NUMBER DATA (trilingual)
+// ══════════════════════════════════════════════════════
+const LIFE = {
+  zh:{
+    1:{name:"独立·领袖",kw:"开创 / 自我 / 太阳",tags:["天生开拓者","领袖气质","独立自主","勇于创新"],
+      core:`你是数字1——太阳的能量。独立、开创、强烈的自我意志是你最鲜明的标记。你天生走在前面，不需要别人推着走。<br><br>你内心有一种执念：<strong>事情如果要做，就要以最好的方式做到。</strong>这种驱动力让你在竞争中往往脱颖而出，但也容易让你在关系和合作中显得固执。`,
+      gift:"领导力天然，不是学来的，而是骨子里带来的。你能在混乱中看清方向，在他人犹豫时果断决策。",
+      shadow:"固执是你最大的绊脚石。你相信自己的判断，有时到了听不进他人建议的程度。当你孤注一掷时，旁边那些声音有时是你看不见的风险预警。",
+      relation:`在关系中你是主导者，充满活力与魅力。但你的"我来安排"有时越过了界。<br><br><strong>最适合与拥有独立性、能欣赏你能力的人相处。</strong>你需要的不是崇拜者，而是能与你并肩的人。`,
+      career:"创业、领导、先锋型角色是你的主场。你在需要独立决策、开拓新局的岗位上如鱼得水。",
+      wealth:"你的财富来自主动出击而非守成。财运高峰通常在你敢于独立决策、走出舒适区之后出现。",
+      cb:["3","5","7"],cg:["2","9"],
+      advice:[{t:"练习倾听，而非等待说话的机会",b:"你的直觉通常对，但他人的视角能让你避开盲区。每天至少一次，先听完再表达。"},{t:"允许自己依赖他人",b:"独立是美德，但孤立是消耗。允许团队承担，不是软弱，而是更聪明的力量分配。"},{t:"选定方向，深耕到底",b:"你有开创力，但容易在一件事成功后想去开创下一件。选一个核心领域，做到无可替代。"},{t:"把「必须赢」换成「想要成长」",b:"当你把竞争心转化为成长心，你的能量会更持久，关系也会更顺畅。"}],
+      quote:"世界需要开拓者，而你生来就是。"},
+    2:{name:"合作·感知",kw:"关系 / 直觉 / 月亮",tags:["共情力超强","天生协调者","细腻敏感","直觉精准"],
+      core:`你是数字2——月亮的能量。情感细腻，直觉灵敏，天生能感知他人的需求与情绪。<br><br>你是团队中最不可或缺的粘合剂。不是最显眼的那个，却往往是最被需要的那个。<strong>你的力量不在于锋芒，而在于深度。</strong>`,
+      gift:"沟通与倾听能力出类拔萃，能让对方感到真正被理解。你是天生的调解者，在冲突中能找到双方都能接受的出口。",
+      shadow:"你最大的挑战是对他人认可的依赖。当外界反馈不佳时，你的内心会比别人震荡更大。优柔寡断也是你的课题。",
+      relation:`你在关系中是最用心、最细腻的那一个。<br><br>但要注意：<strong>过度付出而不表达需求，最终会积累成无声的委屈。</strong>你值得被同样细腻地对待。`,
+      career:"心理咨询、人力资源、外交、设计、教育、医疗护理——任何需要细腻感知与沟通协调的领域，你都能做到极致。",
+      wealth:"你的财富往往通过合作与关系网络而来，而非单打独斗。与他人建立真诚的连接，是你最大的隐性资产。",
+      cb:["4","8","6"],cg:["1","3"],
+      advice:[{t:"建立内在稳定感",b:"你的安全感不该来自他人的态度。每天给自己五分钟，问：今天我为自己做了什么？"},{t:"学会说「不」",b:"你的边界是对自己的尊重，也是对关系的保护。拒绝不会让你失去爱，反而让人更珍视你。"},{t:"练习独立做决定",b:"哪怕是小事，都主动决定而不是问别人。这会积累真实的自我信心。"},{t:"表达你的需求",b:"你擅长满足他人，但常常忘记告诉别人你需要什么。说出来，不是脆弱，是真正的连接。"}],
+      quote:"真正的力量，是在感受一切的同时，依然站稳自己。"},
+    3:{name:"创意·表达",kw:"创造 / 社交 / 木星",tags:["创意无限","口才出众","社交达人","艺术天赋"],
+      core:`你是数字3——木星的能量。充满创意与表达欲，思维跳跃，语言有感染力。你不只是在表达，你是在<strong>创造体验</strong>——让别人因为你的存在而感到更生动。`,
+      gift:"创造力丰富、口才出众、社交能量强。你能在短时间内与陌生人建立连接，把复杂的想法用生动有趣的方式传递出去。",
+      shadow:"三分钟热度和注意力分散是你的老朋友。你开始的项目比完成的多三倍。情绪化时容易言过其实，事后懊悔。",
+      relation:`你让关系充满趣味与惊喜。但深度关系需要稳定与耐心——这正是你需要刻意培养的。<br><br><strong>你最适合与同样有创意、但比你更有执行力的人相处。</strong>`,
+      career:"艺术创作、传媒、写作、公关、营销、教育——任何让你表达自我、感染他人的舞台都是你的主场。",
+      wealth:"你的财富与创意和人脉密切相关。当你把创意专注到一个方向并坚持输出时，财富会随之而来。",
+      cb:["1","5","9"],cg:["2","6"],
+      advice:[{t:"选定一个核心方向，深耕六个月",b:"在某个创意领域坚持输出六个月再判断。深度带来的成就感远超广度。"},{t:"把想法写下来，而不只是说出来",b:"你有无数好主意，但大多停留在谈话里。每天记录想法，标记哪个值得行动。"},{t:"情绪来了，先暂停24小时",b:"在情绪高峰时说出的话，有时会留下不必要的伤痕。给自己一个缓冲。"},{t:"建立最小可行的日常结构",b:"固定一个创作时段，哪怕只是一小时，都能让你的产出翻倍。"}],
+      quote:"你的创意是礼物，落地才是奇迹。"},
+    4:{name:"稳定·实干",kw:"秩序 / 安全 / 土星",tags:["执行力超强","踏实可靠","有条不紊","中流砥柱"],
+      core:`你是数字4——土星的能量。稳定、秩序、踏实是你的核心基因。你是把梦想变成现实的那个人。<br><br><strong>团队里有你，大家才真正踏实。</strong>你不是最耀眼的那颗星，但你是让整个系统运转的那根轴。`,
+      gift:"执行力强，计划性出色，能把复杂的目标拆解为可操作的步骤。你是天生的项目管理者，擅长在混乱中建立秩序。",
+      shadow:"过于保守是你最大的限制。当变化来临，你的第一反应是抗拒而非适应。对安全感的需求有时让你错失真正的机遇。",
+      relation:`你在关系中忠诚、可靠、稳定，是对方最坚实的后盾。但有时你的实际主义会让关系缺少浪漫与惊喜。<br><br><strong>试着偶尔打破自己的计划，给生活留一点即兴的空间。</strong>`,
+      career:"工程、建筑、金融、法律、项目管理、制造业——需要精准、严谨、长期执行的领域，你天生在行。",
+      wealth:"你的财富来自稳定积累，而非一夜暴富。长期投资、踏实经营是你的财富路径。",
+      cb:["2","6","8"],cg:["1","7"],
+      advice:[{t:"每月主动拥抱一次变化",b:"哪怕是换一条上班路线、尝试一道没吃过的菜。小小的主动改变，能逐渐软化对变化的恐惧。"},{t:"区分「谨慎」和「恐惧」",b:"谨慎是评估风险后的选择；恐惧是还没评估就先拒绝。先问：我是在分析，还是在逃避？"},{t:"多表达情感，不只是行动",b:"你的爱是默默去做事，但伴侣和朋友有时需要的是听你说出来。"},{t:"相信过程中的混乱是正常的",b:"当计划失控时，不是失败的信号，而是调整的契机。"}],
+      quote:"大厦之稳，来自你这样的人。"},
+    5:{name:"自由·冒险",kw:"变化 / 感官 / 水星",tags:["适应力极强","热爱自由","思维灵活","天生销售"],
+      core:`你是数字5——水星的能量。自由、变化与感官体验是你的命脉。你渴望体验生命的每一种可能性。<br><br><strong>你的世界里没有"不可能"，只有"还没试过"。</strong>`,
+      gift:"适应能力极强，能在任何环境快速找到自己的节奏。思维灵活，天生的销售与谈判高手。",
+      shadow:"厌倦是你的宿敌。当新鲜感消退，你就开始坐立不安，寻找下一个刺激。对承诺的恐惧，让你有时错失真正深度的关系和事业。",
+      relation:`你的魅力让人着迷，初期的关系总是充满火花。但当关系进入稳定期，你开始感到"困住了"。<br><br><strong>真正的自由，不是不承诺，而是在承诺之内依然感到自由。</strong>`,
+      career:"销售、旅游、媒体、公关、创业、自由职业——需要灵活适应的领域是你的乐园。",
+      wealth:"你的财富机会多、来得快，但也可能去得快。要建立一个稳定的财务底盘。",
+      cb:["1","3","7"],cg:["5","9"],
+      advice:[{t:"在核心领域建立「自由边界」",b:"给自己设定一个不变的核心，其余保持灵活。根基越稳，你飞得越远。"},{t:"允许自己慢下来，体验深度",b:"你习惯了广度，但深度体验会给你意想不到的满足感。"},{t:"把「厌倦」当作信号，而不是行动指令",b:"先问自己：是这件事真的没价值了，还是我只是需要换一个角度？"},{t:"建立简单的财务规则并坚守",b:"每月固定储蓄一个比例。这不是束缚，是让你的冒险更有底气的安全网。"}],
+      quote:"真正的冒险者，知道何时该停下来，扎根生长。"},
+    6:{name:"责任·爱",kw:"关怀 / 家庭 / 金星",tags:["同理心超强","天生守护者","责任感深厚","创造和谐"],
+      core:`你是数字6——金星的能量。爱、责任与关怀是你的核心驱动力。你真心觉得照顾好身边的人是自己的使命。<br><br><strong>你是那个让别人感到安全的人。</strong>你的存在本身，就是一种温暖的力量。`,
+      gift:"极强的同理心，能真正感受到他人的痛苦与需要。善于创造和谐的环境，化解冲突，让团队或家庭凝聚在一起。",
+      shadow:"过度付出是你最深的陷阱。你给予，给予，再给予，却忘了自己也有需要。当付出得不到对等的回应，你慢慢积累成深层的委屈与疲惫。",
+      relation:`你在关系中是最温柔的守护者。但你把太多的自我价值绑定在"被需要"上。<br><br>真正的爱，是让对方自由生长，同时自己也持续成长。`,
+      career:"医疗、心理咨询、教育、社会工作、设计——任何滋养生命、创造美与和谐的领域，你都能做到极致。",
+      wealth:"你太容易把金钱用于照顾他人，而忽视了自己的财务安全。建立\"先照顾自己\"的财务意识。",
+      cb:["2","4","9"],cg:["3","6"],
+      advice:[{t:"把「照顾自己」列为每日首要任务",b:"在照顾他人之前，先问自己：我今天吃好了吗？睡够了吗？"},{t:"设立清晰的边界，温柔地坚守",b:"说\"我现在没办法帮这个\"不是冷漠，而是诚实。"},{t:"接受他人的照顾，让自己被接住",b:"当有人想为你做些什么，允许自己接受。被照顾，也是一种练习。"},{t:"区分「关心」和「控制」",b:"出于爱的过度介入，有时会变成对方的压力。信任他人有能力照顾自己的人生。"}],
+      quote:"你给世界的温柔，同样值得被温柔以待。"},
+    7:{name:"智慧·探索",kw:"内省 / 灵性 / 海王星",tags:["洞察力深邃","哲学思考者","直觉精准","独立内省"],
+      core:`你是数字7——海王星的能量。深邃、内省、对真相有强烈的渴求。你不满足于表面的答案，你要追问到最底层的本质。<br><br><strong>你的内心世界，比外在世界更广阔、更丰富。</strong>`,
+      gift:"分析力强，思维深刻，有天生的直觉洞察力。你能在数据、现象或对话中发现常人忽视的规律与真相。",
+      shadow:"过于封闭是你最深的限制。你不轻易信任，不轻易开口，这保护了你，却也把真正亲密的可能性隔在了门外。",
+      relation:`你的内心世界极为丰富，但你给他人看到的，往往只是冰山一角。<br><br><strong>真正的亲密，需要你愿意打开那扇内心的门。</strong>试着让一个你信任的人，真正走进来。`,
+      career:"研究、数据分析、心理、哲学、技术、写作——任何需要深度思考与洞察的领域，你能走到别人到不了的深处。",
+      wealth:"你对金钱的态度较为超脱。建立一个简单而自动化的财务系统，让钱的事情少占用你宝贵的心智资源。",
+      cb:["1","5","4"],cg:["2","7"],
+      advice:[{t:"主动分享你的内心，哪怕只是一小部分",b:"每周找一个你信任的人，分享一个你的真实想法——不是结论，而是感受和困惑。"},{t:"走出思考，进入行动",b:"你能把一个问题想透彻，但想透彻不等于解决了它。今天就做第一步。"},{t:"建立信任，需要时间，但值得",b:"用怀疑的滤镜看所有人，会让你错过真正值得的连接。"},{t:"照顾你的身体",b:"你的头脑在高速运转时，身体在默默透支。规律的运动和睡眠，是你最好的系统维护。"}],
+      quote:"你所探索的深处，正是世界最需要光的地方。"},
+    8:{name:"权力·财富",kw:"成就 / 物质 / 土星",tags:["领导力极强","商业嗅觉敏锐","掌控全局","成就驱动"],
+      core:`你是数字8——土星最强的表达。权力、财富与成就是你的主旋律。你天生懂得驾驭资源，看清结构，在任何系统中都能找到杠杆点。<br><br><strong>你内心深处知道，自己可以做成一些别人认为很难的事。</strong>而你通常是对的。`,
+      gift:"领导能力与商业嗅觉天然。你能看清一件事的本质结构，找到最有效的切入点。在资源调配、战略决策方面，你往往比别人快半步。",
+      shadow:"控制欲是你最大的阴影面。你对\"事情必须按正确方式运行\"有强烈的执念，这容易让你在关系和团队中变得强势甚至专制。",
+      relation:`你在关系中是强有力的保护者和提供者，给伴侣安全感和稳定。但你的主导欲有时让亲密的人感到喘不过气。<br><br><strong>你最需要学习的，是放手。</strong>不是放弃，而是相信身边的人有能力照顾好自己。`,
+      career:"商业、金融、管理、投资、战略咨询、房地产——任何需要驾驭大局与资源、追求成果的舞台，都是你施展的地方。",
+      wealth:`8号人的财富往往经历明显的起伏——<strong>大起大落</strong>是你的人生结构。每一次低谷背后通常藏着更大的反弹，关键是在低谷时不因焦虑做出冲动决策。`,
+      cb:["2","4","6"],cg:["1","8"],
+      advice:[{t:"把成功的定义扩展到物质之外",b:"关系的质量、内心的平静、身体的健康——这些同样是你值得投入的\"财富\"。"},{t:"练习放权，这是另一种掌控",b:"有意识地把某些决定权交给身边的人。这不是失控，而是更聪明的能量分配。"},{t:"表达你内心的柔软",b:"你的外壳让人以为你刀枪不入。但你也有疲惫、困惑和不确定。在最信任的关系里，说出来。"},{t:"把身体管理当成重要事项",b:"8号人高强度运转，容易把身体信号当作小问题忽视。把\"维护自己\"当成管理重要资产来对待。"}],
+      quote:"真正的强大，不是握紧一切，而是有能力放开，然后一切仍在。"},
+    9:{name:"圆满·智慧",kw:"博爱 / 完成 / 宇宙",tags:["综合能力出众","格局广阔","感染力强","天生引路人"],
+      core:`你是数字9——所有数字的集大成者，1到8的智慧都在你身上留下了印记。你拥有广阔的格局与深厚的悲悯，能理解各种不同的人。<br><br><strong>你是天生的智者与引路人。</strong>身边的人常常在不知不觉中被你影响、被你启发。`,
+      gift:"综合能力极强，情商出众，适应不同场合与人群。你有天然的感召力，在任何领域都能快速上手，广受人喜爱与信任。",
+      shadow:"贪多嚼不烂，样样通样样松。因为什么都能做、什么都感兴趣，你反而难以聚焦。目标不清晰、难以完成是你的老问题。",
+      relation:`你对人有天然的感召力与温暖，但你的博爱特质有时让亲密关系中的人感到：<strong>你谁都爱，却没有人是你最特别的。</strong><br><br>深度经营几段关系，比广泛连接更能滋养你和对方。`,
+      career:"教育、公益、艺术、灵性领域、领导力培训——任何需要引领与启发他人的领域，你都是最合适的人选。",
+      wealth:"你对财富的态度往往超脱，但这也可能让你在物质层面缺乏规划。记住：先把自己照顾好，才能真正照顾别人。",
+      cb:["3","6","9"],cg:["1","2"],
+      advice:[{t:"选定一个核心使命，深耕到底",b:"你什么都能做，但你的生命力量在\"专一\"中才能真正释放。"},{t:"学会完成，而不只是开始",b:"完成一件事，比开始十件事更有力量。给每个项目设定明确的截止点。"},{t:"把博爱化为具体的、持续的行动",b:"选一个你真正关心的议题，长期投入，而不是泛泛地什么都关心。"},{t:"深耕几段核心关系",b:"选择几个你最在乎的人，给他们更多真实的自己。"}],
+      quote:"你的使命，是把你走过的路，变成他人前行的光。"}
+  },
+  en:{
+    1:{name:"Independence · Leader",kw:"Pioneer / Self / Sun",tags:["Natural pioneer","Leadership quality","Self-reliant","Bold innovator"],
+      core:`You are number 1 — the energy of the Sun. Independence, pioneering spirit, and a powerful sense of self are your most defining qualities. You naturally walk ahead of others, no one needs to push you.<br><br>There is a conviction inside you: <strong>if something is worth doing, it must be done in the best possible way.</strong> This drive helps you stand out in competition, but can make you appear stubborn in relationships and collaboration.`,
+      gift:"Your leadership is innate — not learned, but written into your core. You can find clarity in chaos and make decisive moves when others hesitate.",
+      shadow:"Stubbornness is your greatest stumbling block. You trust your own judgment so strongly that you sometimes can't hear other perspectives — and those voices are often warning you of risks you can't yet see.",
+      relation:`In relationships you are the one who takes charge, full of energy and magnetism. But your 'I'll handle it' approach can sometimes overstep boundaries.<br><br><strong>You're best suited to people with their own independence, who can appreciate your abilities</strong> — not admirers, but true equals who walk beside you.`,
+      career:"Entrepreneurship, leadership, and pioneering roles are your arena. You thrive wherever independent decision-making and breaking new ground are required.",
+      wealth:"Your wealth comes from taking initiative, not from being cautious. Financial peaks tend to arrive after bold, independent decisions that push you beyond your comfort zone.",
+      cb:["3","5","7"],cg:["2","9"],
+      advice:[{t:"Practice listening — not just waiting to speak",b:"Your instincts are usually right, but others' perspectives can reveal blind spots. At least once a day, listen fully before responding."},{t:"Allow yourself to rely on others",b:"Independence is a virtue; isolation is a drain. Delegating isn't weakness — it's smarter distribution of energy."},{t:"Choose a direction and go deep",b:"You have the power to pioneer, but you tend to want to start something new once one thing succeeds. Pick one core domain and become irreplaceable in it."},{t:"Replace 'must win' with 'want to grow'",b:"When you transform competitive drive into a growth mindset, your energy becomes more sustainable and your relationships flow more naturally."}],
+      quote:"The world needs pioneers — and you were born to be one."},
+    2:{name:"Cooperation · Perception",kw:"Relationships / Intuition / Moon",tags:["Extraordinary empathy","Natural mediator","Deeply sensitive","Precise intuition"],
+      core:`You are number 2 — the energy of the Moon. Emotionally nuanced, highly intuitive, naturally attuned to others' needs and feelings.<br><br>You are the indispensable glue of any team. Not the most visible, but often the most needed. <strong>Your strength lies not in sharpness, but in depth.</strong>`,
+      gift:"Your ability to communicate and truly listen is exceptional — people feel genuinely understood in your presence. You are a natural mediator, able to find common ground in conflict.",
+      shadow:"Your greatest challenge is dependence on others' approval. When feedback is negative, your inner world is shaken more deeply than most. Indecisiveness is also your lesson.",
+      relation:`You are the most attentive and sensitive person in any relationship.<br><br>But be aware: <strong>over-giving without expressing your own needs eventually becomes silent resentment.</strong> You deserve to be treated with equal care — tell others what you need.`,
+      career:"Psychology, HR, diplomacy, design, education, healthcare — any field requiring nuanced perception and skilled communication is where you excel.",
+      wealth:"Your wealth tends to come through collaboration and relationship networks rather than solo effort. Building genuine connections with others is your greatest hidden asset.",
+      cb:["4","8","6"],cg:["1","3"],
+      advice:[{t:"Build inner stability",b:"Your sense of security shouldn't depend on others' moods. Give yourself five minutes each day to ask: what did I do for myself today?"},{t:"Learn to say no",b:"Your boundaries are self-respect and protection of the relationship. Saying no won't make you lose love — it often makes people value you more."},{t:"Practice making independent decisions",b:"Even for small things — what to eat, what to do first — choose actively rather than deferring. This builds genuine self-confidence."},{t:"Express your own needs",b:"You excel at fulfilling others, but often forget to tell people what you need. Saying it isn't weakness — it's real intimacy."}],
+      quote:"True strength is staying grounded in yourself, even while feeling everything."},
+    3:{name:"Creativity · Expression",kw:"Creation / Socializing / Jupiter",tags:["Limitless creativity","Outstanding communicator","Social powerhouse","Artistic talent"],
+      core:`You are number 3 — the energy of Jupiter. Bursting with creativity and expression, quick-thinking, and infectious in your language. You don't just express — you <strong>create experiences</strong> — making life feel more vivid to everyone around you.`,
+      gift:"Rich creativity, outstanding communication, powerful social energy. You can connect with strangers quickly and convey complex ideas in vivid, engaging ways.",
+      shadow:"Short attention span and scattered focus are your old companions. You start three times as many projects as you finish. Emotional in the moment, you sometimes say more than you mean.",
+      relation:`You make relationships fun and full of surprises. But deep relationships need stability and patience — qualities you need to consciously cultivate.<br><br><strong>You do best with people who share your creativity but have stronger follow-through than you.</strong>`,
+      career:"Art, media, writing, PR, marketing, education, speaking — any stage where you express yourself and move others is your natural domain.",
+      wealth:"Your wealth is closely tied to creativity and networks. When you focus your creative energy in one direction and commit to consistent output, wealth follows.",
+      cb:["1","5","9"],cg:["2","6"],
+      advice:[{t:"Choose one core direction and go deep for six months",b:"Commit to a creative domain for six months before judging results. The fulfillment from depth far exceeds the thrill of breadth."},{t:"Write ideas down, don't just say them",b:"You have brilliant ideas — most live only in conversation. Each day, note three ideas and mark which one deserves action."},{t:"When emotions peak, pause for 24 hours",b:"Words spoken at emotional peaks can leave unnecessary wounds. Give yourself a buffer before expressing."},{t:"Build a minimal daily structure",b:"Fix a creative time block — even just one hour. Creativity flourishes with a simple routine to anchor it."}],
+      quote:"Your creativity is a gift — and its landing is the miracle."},
+    4:{name:"Stability · Diligence",kw:"Order / Security / Saturn",tags:["Exceptional executor","Reliable and solid","Methodical","The team's backbone"],
+      core:`You are number 4 — the energy of Saturn. Stability, order, and groundedness are your core DNA. You are the person who turns dreams into reality.<br><br><strong>When you're on the team, everyone can finally relax.</strong> You're not the brightest star — but you're the axis that keeps the whole system turning.`,
+      gift:"Exceptional execution, excellent planning, the ability to break complex goals into actionable steps. You're a natural project manager, creating order out of chaos.",
+      shadow:"Over-caution is your greatest limitation. When change arrives, your first instinct is resistance rather than adaptation. Your need for security can sometimes cause you to miss real opportunities.",
+      relation:`In relationships you are loyal, reliable, and steady — the most solid foundation for your partner. But your practicality can sometimes leave relationships short on romance and surprise.<br><br><strong>Try occasionally breaking your own plan — leave a little space for spontaneity.</strong>`,
+      career:"Engineering, architecture, finance, law, project management, manufacturing — fields requiring precision, rigor, and long-term execution are your natural territory.",
+      wealth:"Your wealth comes from steady accumulation, not overnight success. Long-term investment and faithful stewardship are your wealth pathways.",
+      cb:["2","6","8"],cg:["1","7"],
+      advice:[{t:"Actively embrace one change each month",b:"Even changing your commute route or trying a new dish. Small voluntary changes gradually soften the fear of change."},{t:"Distinguish 'caution' from 'fear'",b:"Caution is choosing after assessing risk; fear is refusing before assessing. Before saying no, ask: am I analyzing, or am I avoiding?"},{t:"Express emotions, not just actions",b:"Your love shows in what you do, but partners and friends sometimes need to hear you say it."},{t:"Trust that chaos in the process is normal",b:"When plans go sideways, it's not a failure signal — it's a cue to adjust."}],
+      quote:"The steadiness of great structures comes from people like you."},
+    5:{name:"Freedom · Adventure",kw:"Change / Senses / Mercury",tags:["Extraordinarily adaptable","Loves freedom","Flexible thinker","Natural salesperson"],
+      core:`You are number 5 — the energy of Mercury. Freedom, change, and sensory experience are your lifeblood. You crave every possible form of life experience.<br><br><strong>In your world, there is no 'impossible' — only 'not yet tried'.</strong>`,
+      gift:"Exceptionally adaptable, quickly finding your rhythm in any environment. A flexible thinker and natural salesperson and negotiator.",
+      shadow:"Boredom is your nemesis. When novelty fades, you grow restless searching for the next stimulation. Fear of commitment sometimes costs you the deep relationships and careers that could truly fulfill you.",
+      relation:`Your magnetism is captivating — early relationships always sparkle. But when things settle, you start feeling 'trapped'.<br><br><strong>True freedom isn't avoiding commitment — it's feeling free within commitment.</strong>`,
+      career:"Sales, travel, media, PR, entrepreneurship, freelancing — fields requiring flexible adaptation are your playground.",
+      wealth:"Opportunities come fast and frequently — but can also leave quickly. Build a stable financial base: consistently set aside a portion of every gain.",
+      cb:["1","3","7"],cg:["5","9"],
+      advice:[{t:"Create a 'freedom boundary' in your core domain",b:"Set one unchanging core (a main career, a relationship), and keep everything else flexible. The stronger the foundation, the farther you can fly."},{t:"Allow yourself to slow down and taste depth",b:"You're used to breadth — but a deeply savored experience will give you satisfaction you didn't expect."},{t:"Treat 'boredom' as a signal, not a command",b:"Ask first: has this truly lost its value, or do I just need a new angle?"},{t:"Build simple financial rules and keep them",b:"A fixed monthly savings percentage isn't a cage — it's the safety net that makes your adventures bolder."}],
+      quote:"The true adventurer knows when to stop and put down roots."},
+    6:{name:"Responsibility · Love",kw:"Care / Family / Venus",tags:["Extraordinary empathy","Natural guardian","Deep sense of duty","Creates harmony"],
+      core:`You are number 6 — the energy of Venus. Love, responsibility, and care are your core motivations. You genuinely feel that taking care of the people around you is your calling.<br><br><strong>You are the person who makes others feel safe.</strong> Your very presence is a warm and steadying force.`,
+      gift:"Extraordinary empathy — you genuinely feel others' pain and needs. You create harmonious environments, defuse conflict, and bring families and teams together.",
+      shadow:"Over-giving is your deepest trap. You give, give, and give again, forgetting that you also have needs. When the giving isn't reciprocated, resentment and exhaustion accumulate silently.",
+      relation:`You are the most gentle guardian in relationships. But you tie too much of your self-worth to being needed.<br><br>True love is letting the other person grow freely while you continue growing too.`,
+      career:"Healthcare, counseling, education, social work, design — any field that nurtures life and creates beauty and harmony, you can take to its highest expression.",
+      wealth:"You too easily spend money caring for others while neglecting your own financial security. Build the awareness to 'care for yourself first'.",
+      cb:["2","4","9"],cg:["3","6"],
+      advice:[{t:"Make 'caring for yourself' your first daily priority",b:"Before caring for others, ask: did I eat well today? Did I sleep enough? Did I do one thing that brought me joy?"},{t:"Set clear boundaries and hold them gently",b:"Saying 'I can't help with that right now' isn't cold — it's honest. Boundaries protect both you and the relationship."},{t:"Receive care from others — let yourself be held",b:"When someone wants to do something for you, allow yourself to accept it rather than immediately saying 'it's fine, I'll do it'."},{t:"Distinguish 'caring' from 'controlling'",b:"Over-involvement from love can become pressure. Trusting others to manage their own lives is a deeper form of love."}],
+      quote:"The gentleness you give the world deserves to be returned to you."},
+    7:{name:"Wisdom · Exploration",kw:"Introspection / Spirituality / Neptune",tags:["Profound insight","Philosophical thinker","Precise intuition","Independent introspection"],
+      core:`You are number 7 — the energy of Neptune. Deep, introspective, with a burning thirst for truth. Surface answers don't satisfy you — you must find the fundamental nature beneath.<br><br><strong>Your inner world is more vast and rich than your outer world.</strong>`,
+      gift:"Strong analytical ability, profound thinking, innate intuitive insight. You can find patterns and truths in data, phenomena, and conversations that others overlook.",
+      shadow:"Being overly closed is your deepest limitation. You don't trust or open up easily — this protects you, but also keeps true intimacy at arm's length.",
+      relation:`Your inner world is extraordinarily rich, but others typically see only the tip of the iceberg.<br><br><strong>True intimacy requires you to be willing to open that inner door.</strong> Try letting someone you trust actually step inside.`,
+      career:"Research, data analysis, psychology, philosophy, technology, writing — any field requiring deep thinking and insight is where you can go further than anyone else.",
+      wealth:"You hold a somewhat detached attitude toward money. Build a simple, automated financial system that keeps money matters from consuming your precious mental energy.",
+      cb:["1","5","4"],cg:["2","7"],
+      advice:[{t:"Proactively share your inner world — even a little",b:"Each week, find someone you trust and share one genuine thought — not a conclusion, but a feeling or confusion."},{t:"Step out of thinking and into action",b:"You can think a problem through completely, but thinking it through doesn't solve it. Take the first step today."},{t:"Building trust takes time — but it's worth it",b:"Filtering everyone through suspicion means missing the connections that truly matter."},{t:"Take care of your body",b:"While your mind races, your body depletes quietly. Regular exercise and sleep are your best system maintenance."}],
+      quote:"The depths you explore are exactly where the world most needs light."},
+    8:{name:"Power · Wealth",kw:"Achievement / Material / Saturn",tags:["Exceptional leadership","Sharp business instinct","Commands the big picture","Achievement-driven"],
+      core:`You are number 8 — Saturn's strongest expression. Power, wealth, and achievement are your keynotes. You naturally understand how to leverage resources, read structures, and find the pivot point in any system.<br><br><strong>Deep down, you know you can accomplish things others find impossibly difficult.</strong> And you're usually right.`,
+      gift:"Natural leadership ability and business instinct. You can see the essential structure of a situation and find the most effective point of entry. In resource allocation and strategic decision-making, you're consistently half a step ahead.",
+      shadow:"The desire to control is your greatest shadow. Your conviction that 'things must be done the right way' can make you come across as domineering — even authoritarian — in relationships and teams.",
+      relation:`In relationships you are a powerful protector and provider, giving your partner security and stability. But your dominance sometimes makes those closest to you feel breathless.<br><br><strong>The most important thing you can learn is to let go.</strong> Not give up — but trust that the people around you are capable of taking care of themselves.`,
+      career:"Business, finance, management, investment, strategy consulting, real estate — any arena where commanding resources and pursuing results is required, you can rise to the top.",
+      wealth:`The wealth of an 8 often involves significant ups and downs — <strong>dramatic peaks and valleys</strong> are your life structure. Each valley typically conceals a larger rebound — the key is not making impulsive decisions driven by anxiety during the lows.`,
+      cb:["2","4","6"],cg:["1","8"],
+      advice:[{t:"Expand your definition of success beyond the material",b:"Quality of relationships, inner peace, physical health — these are equally worthy investments for you."},{t:"Practice delegating — it's another form of mastery",b:"Consciously hand some decision-making to others. This isn't losing control — it's smarter allocation of your energy."},{t:"Express your inner softness",b:"Your exterior leads people to think you're impenetrable. But you also experience fatigue, uncertainty, and self-doubt. Let the person you trust most actually see that."},{t:"Treat body management as a priority",b:"Number 8s run at high intensity and tend to ignore physical signals. Treat maintaining yourself like managing a critical asset."}],
+      quote:"True strength isn't gripping everything tight — it's being able to let go and finding that everything remains."},
+    9:{name:"Completion · Wisdom",kw:"Universal Love / Fulfillment / Cosmos",tags:["Outstanding all-rounder","Broad perspective","Magnetic charisma","Natural guide"],
+      core:`You are number 9 — the integration of all numbers. The wisdom of 1 through 8 has left its mark in you. You possess vast perspective and deep compassion, able to understand all kinds of people.<br><br><strong>You are a natural sage and guide.</strong> People around you are often influenced and inspired without quite knowing why.`,
+      gift:"Exceptional all-round abilities, outstanding emotional intelligence, adaptable to different settings and people. You have a natural magnetism — in any field you pick things up quickly and earn trust and affection.",
+      shadow:"Spread too thin, skilled in everything but mastering nothing. Because you can do everything and find everything interesting, focus is elusive. Unclear goals and difficulty completing things are your recurring challenges.",
+      relation:`You carry natural warmth and charisma, but your universal love sometimes makes those close to you feel: <strong>you love everyone — but no one is truly special to you.</strong><br><br>Deeply cultivating a few relationships nourishes both you and others far more than broad connection.`,
+      career:"Education, nonprofits, arts, spirituality, leadership coaching — any field where guiding and inspiring others is central, you are the ideal person.",
+      wealth:"Your attitude toward wealth tends toward detachment — which can leave you poorly planned on the material level. Remember: you can only truly care for others after you've cared for yourself.",
+      cb:["3","6","9"],cg:["1","2"],
+      advice:[{t:"Choose one core mission and go deep",b:"You can do anything — but your life force is truly released through singular focus. Ask: if I could only do one thing, what would I leave behind?"},{t:"Learn to finish — not just begin",b:"Completing one thing has more power than starting ten. Set a clear endpoint for each project and commit to reaching it."},{t:"Transform universal love into specific, sustained action",b:"Choose one issue you genuinely care about and invest in it long-term — rather than caring about everything in a diffuse, unfocused way."},{t:"Cultivate a few core relationships deeply",b:"Your charisma means there are always many people around you. But real intimacy requires focus. Give the few people you care most about more of your true self."}],
+      quote:"Your mission is to turn the road you've walked into light for others to follow."}
+  },
+  fr:{
+    1:{name:"Indépendance · Leader",kw:"Pioneer / Soi / Soleil",tags:["Pionnier naturel","Qualité de leader","Indépendant","Innovateur audacieux"],
+      core:`Vous êtes le numéro 1 — l'énergie du Soleil. Indépendance, esprit pionnier et un fort sens de soi sont vos marques les plus distinctives. Vous marchez naturellement devant les autres.<br><br>Il y a une conviction en vous : <strong>si quelque chose vaut la peine d'être fait, il doit être fait de la meilleure façon possible.</strong>`,
+      gift:"Votre leadership est inné — pas appris, mais inscrit dans votre essence. Vous trouvez la clarté dans le chaos et prenez des décisions décisives quand les autres hésitent.",
+      shadow:"L'entêtement est votre plus grand obstacle. Vous faites tellement confiance à votre propre jugement que vous n'entendez parfois pas les autres perspectives.",
+      relation:`Dans les relations, vous êtes celui qui prend les rênes. Mais votre approche 'je vais m'en occuper' dépasse parfois les limites.<br><br><strong>Vous vous entendez mieux avec des personnes ayant leur propre indépendance</strong> — pas des admirateurs, mais de vrais égaux.`,
+      career:"L'entrepreneuriat, le leadership, et les rôles pionniers sont votre arène. Vous vous épanouissez là où la prise de décision indépendante est requise.",
+      wealth:"Votre richesse vient de l'initiative, pas de la prudence. Les pics financiers arrivent souvent après des décisions audacieuses et indépendantes.",
+      cb:["3","5","7"],cg:["2","9"],
+      advice:[{t:"Pratiquez l'écoute — pas seulement l'attente de parler",b:"Vos instincts ont généralement raison, mais les perspectives des autres peuvent révéler des angles morts."},{t:"Permettez-vous de compter sur les autres",b:"L'indépendance est une vertu ; l'isolement est un drain. Déléguer n'est pas une faiblesse."},{t:"Choisissez une direction et allez en profondeur",b:"Vous avez la puissance de pionnier, mais tendez à vouloir démarrer quelque chose de nouveau une fois une chose réussie."},{t:"Remplacez 'doit gagner' par 'veut grandir'",b:"Quand vous transformez l'esprit compétitif en état d'esprit de croissance, votre énergie devient plus durable."}],
+      quote:"Le monde a besoin de pionniers — et vous êtes né pour l'être."},
+    2:{name:"Coopération · Perception",kw:"Relations / Intuition / Lune",tags:["Empathie extraordinaire","Médiateur naturel","Profondément sensible","Intuition précise"],
+      core:`Vous êtes le numéro 2 — l'énergie de la Lune. Émotionnellement nuancé, très intuitif, naturellement à l'écoute des besoins et des sentiments des autres.<br><br>Vous êtes la colle indispensable de toute équipe. Pas le plus visible, mais souvent le plus nécessaire. <strong>Votre force réside non pas dans la tranchant, mais dans la profondeur.</strong>`,
+      gift:"Votre capacité à communiquer et à vraiment écouter est exceptionnelle — les gens se sentent véritablement compris en votre présence.",
+      shadow:"Votre plus grand défi est la dépendance à l'approbation des autres. Quand les retours sont négatifs, votre monde intérieur est ébranlé plus profondément que pour la plupart.",
+      relation:`Vous êtes la personne la plus attentive et sensible dans toute relation.<br><br>Mais attention : <strong>trop donner sans exprimer ses propres besoins finit par créer du ressentiment silencieux.</strong>`,
+      career:"Psychologie, RH, diplomatie, design, éducation, soins — tout domaine nécessitant une perception nuancée et une communication habile est là où vous excellez.",
+      wealth:"Votre richesse tend à venir par la collaboration et les réseaux relationnels plutôt que par l'effort solo.",
+      cb:["4","8","6"],cg:["1","3"],
+      advice:[{t:"Construisez une stabilité intérieure",b:"Votre sentiment de sécurité ne devrait pas dépendre de l'humeur des autres. Donnez-vous cinq minutes chaque jour."},{t:"Apprenez à dire non",b:"Vos limites sont le respect de vous-même et la protection de la relation. Dire non ne vous fera pas perdre l'amour."},{t:"Pratiquez la prise de décision indépendante",b:"Même pour les petites choses — choisissez activement plutôt que de vous en remettre aux autres."},{t:"Exprimez vos propres besoins",b:"Vous excellez à satisfaire les autres, mais oubliez souvent de dire ce dont vous avez besoin."}],
+      quote:"La vraie force, c'est rester ancré en soi tout en ressentant tout."},
+    3:{name:"Créativité · Expression",kw:"Création / Social / Jupiter",tags:["Créativité sans limites","Communicant remarquable","Puissance sociale","Talent artistique"],
+      core:`Vous êtes le numéro 3 — l'énergie de Jupiter. Débordant de créativité et d'expression, à la pensée vive. Vous ne faites pas que vous exprimer — vous <strong>créez des expériences</strong> — rendant la vie plus vivante pour tous autour de vous.`,
+      gift:"Créativité riche, communication exceptionnelle, énergie sociale puissante. Vous pouvez vous connecter rapidement avec des inconnus et transmettre des idées complexes de manière vivante.",
+      shadow:"L'attention dispersée et le manque de constance sont vos vieux compagnons. Vous commencez trois fois plus de projets que vous n'en terminez.",
+      relation:`Vous rendez les relations amusantes et pleines de surprises. Mais les relations profondes nécessitent stabilité et patience.<br><br><strong>Vous vous entendez mieux avec des personnes partageant votre créativité mais ayant plus de constance.</strong>`,
+      career:"Art, médias, écriture, RP, marketing, éducation, prise de parole — tout espace où vous pouvez vous exprimer et toucher les autres est votre domaine naturel.",
+      wealth:"Votre richesse est étroitement liée à la créativité et aux réseaux. Quand vous concentrez votre énergie créative dans une direction et vous engagez dans une production constante, la richesse suit.",
+      cb:["1","5","9"],cg:["2","6"],
+      advice:[{t:"Choisissez une direction centrale et approfondissez pendant six mois",b:"L'épanouissement de la profondeur dépasse de loin le frisson de la largeur."},{t:"Écrivez vos idées, ne vous contentez pas de les dire",b:"Notez chaque jour trois idées et marquez laquelle mérite une action."},{t:"Quand les émotions montent, faites une pause de 24 heures",b:"Les mots prononcés aux pics émotionnels laissent parfois des blessures inutiles."},{t:"Construisez une structure quotidienne minimale",b:"Fixez un créneau créatif — même une heure. La créativité s'épanouit avec une routine simple."}],
+      quote:"Votre créativité est un cadeau — et son atterrissage est le miracle."},
+    4:{name:"Stabilité · Travail",kw:"Ordre / Sécurité / Saturne",tags:["Exécution exceptionnelle","Fiable et solide","Méthodique","Le pilier de l'équipe"],
+      core:`Vous êtes le numéro 4 — l'énergie de Saturne. Stabilité, ordre et solidité sont votre ADN fondamental. Vous êtes la personne qui transforme les rêves en réalité.<br><br><strong>Quand vous êtes dans l'équipe, tout le monde peut enfin se détendre.</strong>`,
+      gift:"Exécution exceptionnelle, excellente planification, capacité à décomposer des objectifs complexes en étapes actionnables.",
+      shadow:"La trop grande prudence est votre plus grande limitation. Quand le changement arrive, votre premier instinct est la résistance plutôt que l'adaptation.",
+      relation:`Dans les relations, vous êtes loyal, fiable et stable — le fondement le plus solide pour votre partenaire.<br><br><strong>Essayez parfois de briser votre propre plan — laissez un peu de place à la spontanéité.</strong>`,
+      career:"Ingénierie, architecture, finance, droit, gestion de projet — les domaines nécessitant précision, rigueur et exécution à long terme sont votre territoire naturel.",
+      wealth:"Votre richesse vient d'une accumulation régulière, pas d'un succès du jour au lendemain. L'investissement à long terme est votre voie.",
+      cb:["2","6","8"],cg:["1","7"],
+      advice:[{t:"Adoptez volontairement un changement chaque mois",b:"Même changer de trajet ou essayer un nouveau plat. Les petits changements volontaires adoucissent progressivement la peur du changement."},{t:"Distinguez 'prudence' de 'peur'",b:"La prudence choisit après avoir évalué le risque ; la peur refuse avant d'évaluer."},{t:"Exprimez vos émotions, pas seulement vos actions",b:"Votre amour se voit dans ce que vous faites, mais les partenaires ont parfois besoin de vous l'entendre dire."},{t:"Faites confiance que le chaos dans le processus est normal",b:"Quand les plans déraillent, ce n'est pas un signal d'échec — c'est une invitation à ajuster."}],
+      quote:"La stabilité des grandes structures vient de personnes comme vous."},
+    5:{name:"Liberté · Aventure",kw:"Changement / Sens / Mercure",tags:["Extraordinairement adaptable","Aime la liberté","Penseur flexible","Vendeur naturel"],
+      core:`Vous êtes le numéro 5 — l'énergie de Mercure. La liberté, le changement et l'expérience sensorielle sont votre essence vitale.<br><br><strong>Dans votre monde, il n'y a pas d'« impossible » — seulement « pas encore essayé ».</strong>`,
+      gift:"Extraordinairement adaptable, trouvant rapidement votre rythme dans tout environnement. Un penseur flexible et un vendeur et négociateur naturel.",
+      shadow:"L'ennui est votre nemesis. Quand la nouveauté s'estompe, vous devenez agité. La peur de l'engagement vous coûte parfois des relations et des carrières qui pourraient vraiment vous épanouir.",
+      relation:`Votre magnétisme est captivant. Mais quand les choses se stabilisent, vous commencez à vous sentir « piégé ».<br><br><strong>La vraie liberté n'est pas d'éviter l'engagement — c'est de se sentir libre dans l'engagement.</strong>`,
+      career:"Ventes, voyage, médias, RP, entrepreneuriat, freelance — les domaines nécessitant une adaptation flexible sont votre terrain de jeu.",
+      wealth:"Les opportunités viennent vite et fréquemment — mais peuvent aussi partir rapidement. Construisez une base financière stable.",
+      cb:["1","3","7"],cg:["5","9"],
+      advice:[{t:"Créez une 'frontière de liberté' dans votre domaine central",b:"Fixez un noyau immuable et gardez le reste flexible. Plus les fondations sont solides, plus vous volez loin."},{t:"Permettez-vous de ralentir et de savourer la profondeur",b:"Vous êtes habitué à la largeur — mais une expérience profondément savourée vous donnera une satisfaction inattendue."},{t:"Traitez l'ennui comme un signal, pas une commande",b:"Demandez d'abord : est-ce que cela a vraiment perdu de sa valeur, ou ai-je juste besoin d'un nouvel angle ?"},{t:"Établissez des règles financières simples et tenez-les",b:"Un pourcentage d'épargne mensuel fixe n'est pas une cage — c'est le filet de sécurité qui rend vos aventures plus audacieuses."}],
+      quote:"Le vrai aventurier sait quand s'arrêter et s'enraciner."},
+    6:{name:"Responsabilité · Amour",kw:"Soin / Famille / Vénus",tags:["Empathie extraordinaire","Gardien naturel","Profond sens du devoir","Crée l'harmonie"],
+      core:`Vous êtes le numéro 6 — l'énergie de Vénus. L'amour, la responsabilité et le soin sont vos motivations centrales. Vous ressentez sincèrement que prendre soin des personnes autour de vous est votre vocation.<br><br><strong>Vous êtes la personne qui fait se sentir les autres en sécurité.</strong>`,
+      gift:"Empathie extraordinaire — vous ressentez vraiment la douleur et les besoins des autres. Vous créez des environnements harmonieux et rassemblez les familles et les équipes.",
+      shadow:"Le trop-donner est votre piège le plus profond. Vous donnez, donnez et donnez encore, oubliant que vous avez aussi des besoins.",
+      relation:`Vous êtes le gardien le plus doux dans les relations. Mais vous liez trop votre estime de soi au fait d'être nécessaire.<br><br>Le vrai amour laisse l'autre grandir librement tout en continuant à grandir soi-même.`,
+      career:"Soins de santé, conseil, éducation, travail social, design — tout domaine qui nourrit la vie et crée beauté et harmonie.",
+      wealth:"Vous dépensez trop facilement pour prendre soin des autres en négligeant votre propre sécurité financière.",
+      cb:["2","4","9"],cg:["3","6"],
+      advice:[{t:"Faites de 'prendre soin de vous' votre première priorité quotidienne",b:"Avant de prendre soin des autres, demandez-vous : ai-je bien mangé aujourd'hui ? Ai-je suffisamment dormi ?"},{t:"Établissez des limites claires et tenez-les avec douceur",b:"Dire 'je ne peux pas aider avec ça maintenant' n'est pas froid — c'est honnête."},{t:"Recevez le soin des autres — laissez-vous soutenir",b:"Quand quelqu'un veut faire quelque chose pour vous, permettez-vous d'accepter."},{t:"Distinguez 'prendre soin' de 'contrôler'",b:"La sur-implication par amour peut devenir une pression. Faire confiance aux autres pour gérer leur propre vie est une forme d'amour plus profonde."}],
+      quote:"La douceur que vous donnez au monde mérite d'être vous être rendue."},
+    7:{name:"Sagesse · Exploration",kw:"Introspection / Spiritualité / Neptune",tags:["Perspicacité profonde","Penseur philosophique","Intuition précise","Introspection indépendante"],
+      core:`Vous êtes le numéro 7 — l'énergie de Neptune. Profond, introspectif, avec une soif ardente de vérité. Les réponses superficielles ne vous satisfont pas.<br><br><strong>Votre monde intérieur est plus vaste et riche que votre monde extérieur.</strong>`,
+      gift:"Forte capacité analytique, pensée profonde, perspicacité intuitive innée. Vous pouvez trouver des modèles et des vérités que les autres ignorent.",
+      shadow:"Être trop fermé est votre limitation la plus profonde. Vous ne faites pas confiance et ne vous ouvrez pas facilement — cela vous protège mais maintient aussi l'intimité vraie à distance.",
+      relation:`Votre monde intérieur est extraordinairement riche, mais les autres ne voient généralement que la partie émergée de l'iceberg.<br><br><strong>La vraie intimité nécessite que vous soyez prêt à ouvrir cette porte intérieure.</strong>`,
+      career:"Recherche, analyse de données, psychologie, philosophie, technologie, écriture — tout domaine nécessitant une pensée profonde.",
+      wealth:"Vous avez une attitude quelque peu détachée envers l'argent. Construisez un système financier simple et automatisé.",
+      cb:["1","5","4"],cg:["2","7"],
+      advice:[{t:"Partagez proactivement votre monde intérieur — même un peu",b:"Chaque semaine, trouvez quelqu'un en qui vous avez confiance et partagez une pensée authentique."},{t:"Sortez de la réflexion et passez à l'action",b:"Vous pouvez penser à un problème jusqu'à la clarté complète, mais la clarté ne le résout pas. Faites le premier pas aujourd'hui."},{t:"Construire la confiance prend du temps — mais ça vaut la peine",b:"Filtrer tout le monde à travers le soupçon signifie manquer les connexions qui comptent vraiment."},{t:"Prenez soin de votre corps",b:"Pendant que votre esprit s'emballe, votre corps s'épuise silencieusement."}],
+      quote:"Les profondeurs que vous explorez sont exactement là où le monde a le plus besoin de lumière."},
+    8:{name:"Pouvoir · Richesse",kw:"Réussite / Matériel / Saturne",tags:["Leadership exceptionnel","Instinct commercial aiguisé","Maîtrise la vue d'ensemble","Orienté réussite"],
+      core:`Vous êtes le numéro 8 — l'expression la plus puissante de Saturne. Pouvoir, richesse et réussite sont vos notes fondamentales. Vous comprenez naturellement comment exploiter les ressources et trouver le point de pivot dans tout système.<br><br><strong>Au fond, vous savez que vous pouvez accomplir des choses que d'autres trouvent impossibles.</strong> Et vous avez généralement raison.`,
+      gift:"Capacité de leadership naturelle et instinct commercial. Vous pouvez voir la structure essentielle d'une situation et trouver le point d'entrée le plus efficace.",
+      shadow:"Le désir de contrôle est votre plus grande ombre. Votre conviction que 'les choses doivent être faites de la bonne façon' peut vous faire paraître autoritaire.",
+      relation:`Dans les relations, vous êtes un protecteur et pourvoyeur puissant. Mais votre dominance fait parfois se sentir ceux qui vous sont proches à bout de souffle.<br><br><strong>La chose la plus importante que vous puissiez apprendre est de lâcher prise.</strong>`,
+      career:"Affaires, finance, management, investissement, conseil en stratégie, immobilier — tout arène où commander des ressources et poursuivre des résultats est requis.",
+      wealth:`La richesse d'un 8 implique souvent des hauts et des bas significatifs — <strong>des pics et des creux spectaculaires</strong> sont votre structure de vie. La clé est de ne pas prendre de décisions impulsives pendant les creux.`,
+      cb:["2","4","6"],cg:["1","8"],
+      advice:[{t:"Élargissez votre définition du succès au-delà du matériel",b:"La qualité des relations, la paix intérieure, la santé physique — ce sont des investissements tout aussi précieux."},{t:"Pratiquez la délégation — c'est une autre forme de maîtrise",b:"Confiez consciemment certaines prises de décision aux autres."},{t:"Exprimez votre douceur intérieure",b:"Votre extérieur amène les gens à penser que vous êtes impénétrable. Mais vous aussi vous éprouvez fatigue et incertitude."},{t:"Traitez la gestion du corps comme une priorité",b:"Les numéros 8 fonctionnent à haute intensité et ont tendance à ignorer les signaux physiques."}],
+      quote:"La vraie force n'est pas de tout tenir fermement — c'est de pouvoir lâcher prise et trouver que tout reste."},
+    9:{name:"Accomplissement · Sagesse",kw:"Amour universel / Épanouissement / Cosmos",tags:["Polyvalent remarquable","Perspective large","Charisme magnétique","Guide naturel"],
+      core:`Vous êtes le numéro 9 — l'intégration de tous les nombres. La sagesse de 1 à 8 a laissé sa marque en vous. Vous possédez une vaste perspective et une profonde compassion.<br><br><strong>Vous êtes un sage et un guide naturel.</strong> Les personnes autour de vous sont souvent influencées et inspirées sans vraiment savoir pourquoi.`,
+      gift:"Capacités polyvalentes exceptionnelles, intelligence émotionnelle remarquable, adaptable à différents contextes et personnes.",
+      shadow:"Étalé trop mince, compétent en tout mais ne maîtrisant rien. Parce que vous pouvez tout faire et trouvez tout intéressant, la concentration est insaisissable.",
+      relation:`Vous portez chaleur et charisme naturels, mais votre amour universel fait parfois sentir à ceux qui vous sont proches : <strong>vous aimez tout le monde — mais personne n'est vraiment spécial pour vous.</strong>`,
+      career:"Éducation, associations, arts, spiritualité, coaching en leadership — tout domaine où guider et inspirer les autres est central.",
+      wealth:"Votre attitude envers la richesse tend vers le détachement — ce qui peut vous laisser mal planifié au niveau matériel.",
+      cb:["3","6","9"],cg:["1","2"],
+      advice:[{t:"Choisissez une mission centrale et approfondissez",b:"Vous pouvez tout faire — mais votre force vitale est vraiment libérée à travers une concentration singulière."},{t:"Apprenez à finir — pas seulement à commencer",b:"Terminer une chose a plus de pouvoir que d'en commencer dix."},{t:"Transformez l'amour universel en action spécifique et soutenue",b:"Choisissez un sujet qui vous tient vraiment à cœur et investissez-y sur le long terme."},{t:"Cultivez profondément quelques relations centrales",b:"Votre charisme signifie qu'il y a toujours beaucoup de personnes autour de vous. Mais la vraie intimité nécessite de la concentration."}],
+      quote:"Votre mission est de transformer le chemin que vous avez parcouru en lumière pour les autres."}
+  }
+};
+
+// ══════════════════════════════════════════════════════
+// NINE-PALACE LINES (trilingual)
+// ══════════════════════════════════════════════════════
+const LINES = {
+  zh:[
+    {nums:[3,6,9],name:"思维线",
+      has:{label:"思维线完整",power:"思维活跃，创意丰富，想象力超群。擅长教育、艺术与创作，能把抽象的想法变成感人的表达。"},
+      miss:{label:"思维线缺失",note:"创意表达可能需要更多练习。建议通过写作、绘画或任何创意活动，开发内在的表达潜能。"}},
+    {nums:[2,5,8],name:"情感线",
+      has:{label:"情感线完整",power:"情感智慧出众，直觉力强。人际关系处理能力突出，能感知他人需求，在需要情商的场合如鱼得水。"},
+      miss:{label:"情感线缺失",note:"人际关系可能需要更多有意识的经营。建议主动练习共情与表达，不要让逻辑盖过感受。"}},
+    {nums:[1,4,7],name:"学习线",
+      has:{label:"学习线完整",power:"记忆力强，逻辑清晰，财富意识稳健。善于系统性学习，能把知识转化为实际能力，与财运及事业积累密切相关。"},
+      miss:{label:"学习线缺失",note:"学习与记忆可能需要更多刻意练习。建议建立固定的学习习惯，用外部结构弥补内在驱动的不足。"}},
+    {nums:[3,2,1],name:"行动线",
+      has:{label:"行动线完整",power:"执行力强，敢于开拓，行动果断。不只是说，而是真的去做，能在短时间内把想法变成现实。"},
+      miss:{label:"行动线缺失",note:"从想法到行动可能有阻力。建议用\"最小行动原则\"——把目标拆解到最小的第一步，让启动更容易。"}},
+    {nums:[6,5,4],name:"意志线",
+      has:{label:"意志线完整",power:"意志力坚韧，逆境中稳如磐石。拥有持续前行的内在驱动力，不轻易被挫折打倒，是长跑型的成功者。"},
+      miss:{label:"意志线缺失",note:"持续坚持可能是挑战。建议寻找一个核心价值观作为锚点——当外在动力不足时，让内在信念撑着你走。"}},
+    {nums:[9,8,7],name:"实践线",
+      has:{label:"实践线完整",power:"务实高效，能将理想落地。善于把宏大的愿景拆解为可执行的步骤，结果导向。"},
+      miss:{label:"实践线缺失",note:"将想法落地可能需要更多支持。建议找一个执行力强的伙伴合作，或者专门练习\"完成一件小事\"的习惯。"}},
+    {nums:[3,5,7],name:"智慧表达线",
+      has:{label:"智慧表达线完整",power:"洞察力与表达力并驾齐驱，是天生的老师、演讲者与作家。能把深刻的洞见用感染力强的方式传递出去，极具说服力。"},
+      miss:{label:"智慧表达线缺失",note:"将内在洞察转化为有力表达可能需要练习。建议从写日记或分享开始，逐步建立把思想外化的能力。"}},
+    {nums:[1,5,9],name:"中心线",
+      has:{label:"中心线完整",power:"核心能量强大，自我与使命高度统一。内在力量充沛，人生目标清晰，能把个人意志与更大的使命感融为一体。"},
+      miss:{label:"中心线缺失",note:"个人意志与人生使命的连接可能需要刻意建立。建议定期静下来问：我真正想要的是什么？这件事对更大的意义是什么？"}}
+  ],
+  en:[
+    {nums:[3,6,9],name:"Mind Line",
+      has:{label:"Mind Line Active",power:"Active thinking, rich creativity, exceptional imagination. Excels in education, arts and creation, able to transform abstract ideas into moving expression."},
+      miss:{label:"Mind Line Absent",note:"Creative expression may need more practice. Try writing, drawing, or any creative activity to develop your inner expressive potential."}},
+    {nums:[2,5,8],name:"Emotion Line",
+      has:{label:"Emotion Line Active",power:"Outstanding emotional intelligence, strong intuition. Excels in managing relationships, attuned to others' needs, thrives wherever emotional intelligence is required."},
+      miss:{label:"Emotion Line Absent",note:"Relationships may need more conscious cultivation. Practice empathy and expression — don't let logic override feeling."}},
+    {nums:[1,4,7],name:"Learning Line",
+      has:{label:"Learning Line Active",power:"Strong memory, clear logic, solid wealth consciousness. Learns systematically and translates knowledge into practical ability — closely linked to career growth and financial building."},
+      miss:{label:"Learning Line Absent",note:"Learning and retention may need deliberate practice. Build a consistent study habit — use external structure to supplement inner drive."}},
+    {nums:[3,2,1],name:"Action Line",
+      has:{label:"Action Line Active",power:"Strong execution, bold pioneering, decisive action. You don't just talk — you do. You can turn ideas into reality in a short time."},
+      miss:{label:"Action Line Absent",note:"There may be resistance between idea and action. Try the 'minimum action principle' — break goals into the smallest possible first step to make starting easier."}},
+    {nums:[6,5,4],name:"Will Line",
+      has:{label:"Will Line Active",power:"Iron willpower, unshakeable in adversity. You carry an inner drive that sustains forward movement — not easily defeated by setbacks. A long-distance success type."},
+      miss:{label:"Will Line Absent",note:"Sustained persistence may be a challenge. Find a core value to serve as your anchor — when external motivation fades, let inner conviction carry you."}},
+    {nums:[9,8,7],name:"Practice Line",
+      has:{label:"Practice Line Active",power:"Practical and efficient, able to ground ideals into reality. Excels at breaking grand visions into executable steps — results-oriented."},
+      miss:{label:"Practice Line Absent",note:"Landing ideas may need more support. Consider finding a strong executor to partner with, or build the habit of 'completing one small thing' deliberately."}},
+    {nums:[3,5,7],name:"Wisdom-Expression Line",
+      has:{label:"Wisdom-Expression Line Active",power:"Insight and expression move in perfect tandem — a natural teacher, speaker, and writer. You can convey profound insights in deeply moving ways, with remarkable persuasive power."},
+      miss:{label:"Wisdom-Expression Line Absent",note:"Translating inner insight into powerful expression may need practice. Start with journaling or sharing — gradually build the ability to externalize your thoughts."}},
+    {nums:[1,5,9],name:"Central Line",
+      has:{label:"Central Line Active",power:"Powerful core energy, self and mission in high alignment. Abundant inner strength, clear life purpose — able to fuse personal will with a greater sense of mission."},
+      miss:{label:"Central Line Absent",note:"The link between personal will and life mission may need deliberate building. Regularly pause to ask: what do I truly want? What greater meaning does this serve?"}}
+  ],
+  fr:[
+    {nums:[3,6,9],name:"Ligne Mentale",
+      has:{label:"Ligne Mentale Active",power:"Pensée active, créativité riche, imagination exceptionnelle. Excelle dans l'éducation, les arts et la création, capable de transformer des idées abstraites en expression touchante."},
+      miss:{label:"Ligne Mentale Absente",note:"L'expression créative peut nécessiter plus de pratique. Essayez l'écriture, le dessin ou toute activité créative pour développer votre potentiel expressif intérieur."}},
+    {nums:[2,5,8],name:"Ligne Émotionnelle",
+      has:{label:"Ligne Émotionnelle Active",power:"Intelligence émotionnelle remarquable, forte intuition. Excelle dans la gestion des relations, à l'écoute des besoins des autres, s'épanouit où l'intelligence émotionnelle est requise."},
+      miss:{label:"Ligne Émotionnelle Absente",note:"Les relations peuvent nécessiter une cultivation plus consciente. Pratiquez l'empathie et l'expression — ne laissez pas la logique prendre le dessus sur le ressenti."}},
+    {nums:[1,4,7],name:"Ligne d'Apprentissage",
+      has:{label:"Ligne d'Apprentissage Active",power:"Mémoire forte, logique claire, conscience financière solide. Apprend systématiquement et traduit le savoir en capacité pratique — étroitement lié à la croissance professionnelle."},
+      miss:{label:"Ligne d'Apprentissage Absente",note:"L'apprentissage et la rétention peuvent nécessiter une pratique délibérée. Construisez une habitude d'étude cohérente."}},
+    {nums:[3,2,1],name:"Ligne d'Action",
+      has:{label:"Ligne d'Action Active",power:"Forte exécution, pionnier audacieux, action décisive. Vous ne faites pas que parler — vous faites. Vous pouvez transformer des idées en réalité rapidement."},
+      miss:{label:"Ligne d'Action Absente",note:"Il peut y avoir une résistance entre l'idée et l'action. Essayez le 'principe d'action minimale' — décomposez les objectifs en la plus petite première étape possible."}},
+    {nums:[6,5,4],name:"Ligne de Volonté",
+      has:{label:"Ligne de Volonté Active",power:"Volonté de fer, inébranlable dans l'adversité. Vous portez une force intérieure qui soutient l'avancement — pas facilement vaincu par les revers."},
+      miss:{label:"Ligne de Volonté Absente",note:"La persévérance soutenue peut être un défi. Trouvez une valeur centrale pour servir d'ancre."}},
+    {nums:[9,8,7],name:"Ligne de Pratique",
+      has:{label:"Ligne de Pratique Active",power:"Pratique et efficace, capable d'ancrer les idéaux dans la réalité. Excelle à décomposer de grandes visions en étapes exécutables — orienté résultats."},
+      miss:{label:"Ligne de Pratique Absente",note:"Concrétiser les idées peut nécessiter plus de soutien. Envisagez de trouver un partenaire exécutif fort."}},
+    {nums:[3,5,7],name:"Ligne Sagesse-Expression",
+      has:{label:"Ligne Sagesse-Expression Active",power:"Perspicacité et expression progressent en parfaite harmonie — enseignant, orateur et écrivain naturel. Vous pouvez transmettre des insights profonds de manière profondément touchante."},
+      miss:{label:"Ligne Sagesse-Expression Absente",note:"Traduire l'insight intérieur en expression puissante peut nécessiter de la pratique. Commencez par tenir un journal ou partager."}},
+    {nums:[1,5,9],name:"Ligne Centrale",
+      has:{label:"Ligne Centrale Active",power:"Énergie centrale puissante, soi et mission en haute harmonie. Force intérieure abondante, but de vie clair — capable de fusionner la volonté personnelle avec un plus grand sens de la mission."},
+      miss:{label:"Ligne Centrale Absente",note:"Le lien entre la volonté personnelle et la mission de vie peut nécessiter une construction délibérée."}}
+  ]
+};
+
+// ══════════════════════════════════════════════════════
+// LANG SWITCHING
+// ══════════════════════════════════════════════════════
+function setLang(l){
+  LANG=l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderUI();
+  // if on result screen, re-render
+  if(document.getElementById('s2').classList.contains('active')&&lastResult){
+    renderResult(...lastResult);
+  }
+}
+
+function renderUI(){
+  const u=UI[LANG];
+  document.getElementById('i-title').textContent=u.introTitle;
+  document.getElementById('i-sub').textContent=u.introSub;
+  document.getElementById('i-desc').innerHTML=u.introDesc.replace(/\n/g,'<br>');
+  document.getElementById('i-btn').textContent=u.introBtn;
+  document.getElementById('in-title').textContent=u.inputTitle;
+  document.getElementById('in-sub').textContent=u.inputSub;
+  document.getElementById('in-datelabel').textContent=u.dateLabel;
+  document.getElementById('in-y').textContent=u.y;
+  document.getElementById('in-m').textContent=u.m;
+  document.getElementById('in-d').textContent=u.d;
+  document.getElementById('in-namelabel').textContent=u.nameLabel;
+  document.getElementById('uname').placeholder=u.namePH;
+  document.getElementById('year').placeholder=u.y;
+  document.getElementById('month').placeholder=u.m;
+  document.getElementById('day').placeholder=u.d;
+  document.getElementById('in-calcbtn').textContent=u.calcBtn;
+}
+
+// ══════════════════════════════════════════════════════
+// CALCULATION
+// ══════════════════════════════════════════════════════
+let lastResult=null;
+function reduce(n){while(n>9){n=String(n).split('').reduce((a,b)=>a+parseInt(b),0);}return n;}
+function go(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');window.scrollTo(0,0);}
+
+function calculate(){
+  const u=UI[LANG];
+  const y=parseInt(document.getElementById('year').value)||0;
+  const m=parseInt(document.getElementById('month').value)||0;
+  const d=parseInt(document.getElementById('day').value)||0;
+  const name=(document.getElementById('uname').value||'').trim();
+  if(!y||!m||!d){showToast(u.errFill);return;}
+  if(y<1900||y>2025){showToast(u.errYear);return;}
+  if(m<1||m>12){showToast(u.errMonth);return;}
+  if(d<1||d>31){showToast(u.errDay);return;}
+  const digits=`${y}${m}${d}`.split('').map(Number);
+  const tianfu=digits.reduce((a,b)=>a+b,0);
+  const shengming=reduce(tianfu);
+  lastResult=[name,y,m,d,tianfu,shengming];
+  renderResult(name,y,m,d,tianfu,shengming);
+  go(2);
+}
+
+function renderResult(name,y,m,d,tianfu,shengming){
+  const u=UI[LANG];
+  const info=LIFE[LANG][shengming];
+  const numData=NUM[LANG];
+  const comboData=COMBO[LANG];
+  const lineData=LINES[LANG];
+  const dn=name||(y+' · '+m+' · '+d);
+
+  // Talent DNA
+  const tfStr=String(tianfu).padStart(2,'0');
+  const d1=parseInt(tfStr[0]),d2=parseInt(tfStr[1])||0;
+  const comboKey=String(tianfu);
+  const combo=comboData[comboKey]||comboData[String(d1)+String(d2)]||comboData['default'];
+  const d1info=numData[d1]||numData[1];
+  const d2info=d2?numData[d2]:null;
+
+  // Nine palace
+  const bdDigits=`${y}${m}${d}`.split('').map(Number).filter(x=>x>0);
+  const counts={};for(let i=1;i<=9;i++)counts[i]=0;
+  bdDigits.forEach(x=>{if(x>=1&&x<=9)counts[x]++;});
+
+  // Lines
+  const lineResults=lineData.map(line=>{
+    const has=line.nums.every(n=>counts[n]>0);
+    return{...line,has};
+  });
+
+  // Missing
+  const missingNums=[];for(let i=1;i<=9;i++){if(counts[i]===0)missingNums.push(i);}
+
+  // HTML parts
+  const cb=info.cb.map(n=>`<span class="compat-best">${u.labelNum1}${n} · ${LIFE[LANG][n].name.split(/[·\s]/)[0]}</span>`).join('');
+  const cg=info.cg.map(n=>`<span class="compat-good">${u.labelNum1}${n} · ${LIFE[LANG][n].name.split(/[·\s]/)[0]}</span>`).join('');
+  const adv=info.advice.map((a,i)=>`<li><span class="adv-num">${['Ⅰ','Ⅱ','Ⅲ','Ⅳ'][i]}</span><span class="adv-body"><strong>${a.t}</strong><span>${a.b}</span></span></li>`).join('');
+
+  const gridOrder=[3,6,9,2,5,8,1,4,7];
+  const pcHtml=gridOrder.map(n=>{
+    const c=counts[n];
+    const dots='●'.repeat(Math.min(c,4));
+    return`<div class="pc${c>0?' active':''}"><span class="pc-pos">${n}</span><span class="pc-dots">${dots}</span>${c>1?`<span class="pc-count">×${c}</span>`:''}</div>`;
+  }).join('');
+
+  const lineHtml=lineResults.map(l=>`
+    <div class="line-item">
+      <div class="line-header">
+        <span class="line-badge ${l.has?'line-has':'line-missing'}">${l.has?u.lineHas:u.lineMiss}</span>
+        <span class="line-name">${l.name} (${l.nums.join('-')})</span>
+      </div>
+      ${l.has?`<div class="line-desc">${l.has.power}</div>`:`<div class="line-power">${l.miss.note}</div>`}
+    </div>`).join('');
+
+  const missingHtml=missingNums.length>0
+    ?`<div class="missing-note"><div class="missing-note-title">${u.missingTitle}${missingNums.join('、')}</div><div class="missing-note-text">${missingNums.map(n=>`<strong>${n} (${numData[n].name})</strong>: ${numData[n].gift.substring(0,40)}...`).join('<br>')}</div></div>`
+    :`<div class="missing-note"><div class="missing-note-title">${u.missingAll}</div><div class="missing-note-text">${u.missingAllNote}</div></div>`;
+
+  document.getElementById('rc').innerHTML=`
+  <div class="r-hero">
+    <div class="r-name">${dn}</div>
+    <div class="num-row">
+      <div class="nb"><div class="nb-n" style="font-size:24px">${tianfu}</div><div class="nb-t">${LANG==='zh'?'天赋数':LANG==='fr'?'Nombre Talent':'Talent No.'}</div></div>
+      <div class="arr">›</div>
+      <div class="nb main"><div class="nb-n">${shengming}</div><div class="nb-t">${LANG==='zh'?'生命数':LANG==='fr'?'Nombre de Vie':'Life No.'}</div></div>
+    </div>
+    <div class="r-title">${info.name}</div>
+    <div class="r-kw">${info.kw}</div>
+  </div>
+  <div class="tags">${info.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+
+  <div class="dna-card">
+    <div class="dna-title">${u.labelDNA}</div>
+    <div class="dna-formula">
+      ${d2info?`<div class="dna-chip"><div class="dna-chip-n">${d1}</div><div class="dna-chip-t">${d1info.name}</div></div><span class="dna-plus">+</span><div class="dna-chip"><div class="dna-chip-n">${d2}</div><div class="dna-chip-t">${d2info.name}</div></div><span class="dna-eq">=</span>`:''}
+      <div class="dna-chip big"><div class="dna-chip-n">${shengming}</div><div class="dna-chip-t">${LANG==='zh'?'生命数':LANG==='fr'?'Vie':'Life'}</div></div>
+    </div>
+    <div class="dna-row">
+      <div class="dna-num-label"><span class="dna-num-badge">${d1}</span>${u.labelNum1}${d1} · ${d1info.name}${u.labelNum2}</div>
+      <div class="dna-text"><strong>${u.giftLabel}</strong>${d1info.gift}<br><strong>${u.shadowLabel}</strong>${d1info.shadow}</div>
+    </div>
+    ${d2info?`<div class="dna-row"><div class="dna-num-label"><span class="dna-num-badge">${d2}</span>${u.labelNum1}${d2} · ${d2info.name}${u.labelNum2}</div><div class="dna-text"><strong>${u.giftLabel}</strong>${d2info.gift}<br><strong>${u.shadowLabel}</strong>${d2info.shadow}</div></div>`:''}
+    ${combo?`<div class="dna-combo-box"><div class="dna-combo-title">✦ ${combo.title}</div><div class="dna-combo-text">${combo.text}</div><div style="margin-top:6px;font-size:11px;color:rgba(201,168,76,.5)">${u.keyLabel}${combo.key}</div></div>`:''}
+  </div>
+
+  <div class="card"><div class="ct">${u.labelCore} ${shengming}</div><div class="cb">${info.core}</div></div>
+
+  <div class="dc">
+    <div class="dct">${u.labelGiftShadow}</div>
+    <div class="dcols">
+      <div><div class="dcl">${u.labelGift}</div><div class="dct2">${info.gift}</div></div>
+      <div><div class="dcl">${u.labelShadow}</div><div class="dct2">${info.shadow}</div></div>
+    </div>
+  </div>
+
+  <div class="grid-card">
+    <div class="grid-title">${u.labelGrid}</div>
+    <div class="grid-layout">
+      <div><div class="palace">${pcHtml}</div><div style="margin-top:8px;font-size:11px;color:rgba(201,168,76,.4);line-height:1.6">${u.gridNote}</div></div>
+      <div class="grid-lines">${lineHtml}</div>
+    </div>
+    ${missingHtml}
+  </div>
+
+  <div class="card">
+    <div class="ct">${u.labelRelation}</div>
+    <div class="cb">${info.relation}</div>
+    <div class="compat-label">${u.bestCompat}</div><div class="compat-row">${cb}</div>
+    <div class="compat-label">${u.goodCompat}</div><div class="compat-row">${cg}</div>
+  </div>
+
+  <div class="dc">
+    <div class="dct">${u.labelCareer}</div>
+    <div class="dcols">
+      <div><div class="dcl">${u.labelCareerCol}</div><div class="dct2">${info.career}</div></div>
+      <div><div class="dcl">${u.labelWealthCol}</div><div class="dct2">${info.wealth}</div></div>
+    </div>
+  </div>
+
+  <div class="sec-label">${u.labelAdvice}</div>
+  <div class="card"><ul class="adv-list">${adv}</ul></div>
+
+  <div class="sec-label">${u.labelShare}</div>
+  <div class="share-card">
+    <div class="sc tl"></div><div class="sc tr"></div><div class="sc bl"></div><div class="sc br"></div>
+    <div class="sapp">${u.shareAppName}</div>
+    <div class="snum">${shengming}</div>
+    <div class="snl">${u.shareLifeNum}</div>
+    <div class="sname">${info.name}</div>
+    <div class="skw">${info.kw}</div>
+    <div class="sdiv"></div>
+    <div class="sbubs">
+      <div class="sb"><div class="sb-n">${tianfu}</div><div class="sb-t">${LANG==='zh'?'天赋数':LANG==='fr'?'Talent':'Talent'}</div></div>
+      <div class="sb"><div class="sb-n">${shengming}</div><div class="sb-t">${LANG==='zh'?'生命数':LANG==='fr'?'Vie':'Life'}</div></div>
+      <div class="sb"><div class="sb-n">${m}/${d}</div><div class="sb-t">${LANG==='zh'?'生日':LANG==='fr'?'Naissance':'Birthday'}</div></div>
+    </div>
+    <div class="sdiv"></div>
+    <div class="squote">"${info.quote}"</div>
+    <div class="sfooter">✦ ${u.shareAppName} ✦</div>
+  </div>
+  <button class="btn-share" onclick="showToast(UI[LANG].toastShare)">${u.shareBtn}</button>
+  <button class="btn-again" onclick="go(1)">${u.againBtn}</button>`;
+}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+// Init
+renderUI();
+</script>
+</body>
+</html>
