@@ -9,7 +9,7 @@
 :root{--gold:#C9A84C;--gold-light:#E8D5A3;--gold-dim:#8B6E32;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{width:100%;min-height:100vh;background:#0F0C07;font-family:'Noto Serif SC','Playfair Display',Georgia,serif;}
-.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:radial-gradient(ellipse at 50% 0%,#2A1F0A 0%,#0F0C07 60%);}
 .bg::before{content:'';position:absolute;inset:0;background-image:
   radial-gradient(1px 1px at 15% 20%,rgba(201,168,76,.6) 0%,transparent 100%),
@@ -32,7 +32,20 @@ html,body{width:100%;min-height:100vh;background:#0F0C07;font-family:'Noto Serif
 .lang-btn.active{background:rgba(201,168,76,.2);border-color:rgba(201,168,76,.5);color:var(--gold-light);}
 .lang-btn:active{transform:scale(.95);}
 
-.screen{display:none;position:relative;z-index:1;min-height:100vh;padding:0 0 70px;}
+.screen{display:none;position:fixed;inset:0;z-index:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 70px;
+  background-color:#0F0C07;
+  background-image:
+    radial-gradient(ellipse at 50% 0%,#2A1F0A 0%,transparent 60%),
+    radial-gradient(1px 1px at 15% 20%,rgba(201,168,76,.6) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 72% 8%,rgba(201,168,76,.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 38% 35%,rgba(201,168,76,.4) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 85% 25%,rgba(201,168,76,.7) 0%,transparent 100%),
+    radial-gradient(1px 1px at 55% 55%,rgba(201,168,76,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 10% 65%,rgba(201,168,76,.4) 0%,transparent 100%),
+    radial-gradient(1px 1px at 92% 70%,rgba(201,168,76,.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 28% 80%,rgba(201,168,76,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 60% 90%,rgba(201,168,76,.4) 0%,transparent 100%);
+  background-attachment:fixed;}
 .screen.active{display:block;}
 
 /* INTRO */
@@ -284,7 +297,7 @@ const UI = {
     missingAllNote:"你的生命数字覆盖面广，各方面能量相对均衡，成长重点在于深化而非补缺。",
     giftLabel:"天赋：",shadowLabel:"挑战：",keyLabel:"关键词：",
     labelNum1:"数字",labelNum2:"的能量",
-    lineHas:"完整",lineMiss:"缺失",
+    lineHas:"圆满",lineMiss:"缺失",
   },
   en:{
     introTitle:"Life Number Code",introSub:"NUMEROLOGY · Decode Your Destiny",
@@ -314,7 +327,7 @@ const UI = {
     missingAllNote:"Your life numbers cover a broad range. Your growth focus is on deepening existing strengths rather than filling gaps.",
     giftLabel:"Gift: ",shadowLabel:"Challenge: ",keyLabel:"Key: ",
     labelNum1:"Number ",labelNum2:" energy",
-    lineHas:"Active",lineMiss:"Absent",
+    lineHas:"Perfect",lineMiss:"Absent",
   },
   fr:{
     introTitle:"Code des Nombres de Vie",introSub:"NUMÉROLOGIE · Décodez votre Destin",
@@ -344,7 +357,7 @@ const UI = {
     missingAllNote:"Vos nombres de vie couvrent un large spectre. Votre croissance se concentre sur l'approfondissement plutôt que le comblement.",
     giftLabel:"Don : ",shadowLabel:"Défi : ",keyLabel:"Clé : ",
     labelNum1:"Nombre ",labelNum2:" énergie",
-    lineHas:"Actif",lineMiss:"Absent",
+    lineHas:"Parfait",lineMiss:"Absent",
   }
 };
 
@@ -711,80 +724,80 @@ const LIFE = {
 const LINES = {
   zh:[
     {nums:[3,6,9],name:"思维线",
-      has:{label:"思维线完整",power:"思维活跃，创意丰富，想象力超群。擅长教育、艺术与创作，能把抽象的想法变成感人的表达。"},
+      has:{label:"思维线圆满",power:"思维活跃，创意丰富，想象力超群。擅长教育、艺术与创作，能把抽象的想法变成感人的表达。"},
       miss:{label:"思维线缺失",note:"创意表达可能需要更多练习。建议通过写作、绘画或任何创意活动，开发内在的表达潜能。"}},
     {nums:[2,5,8],name:"情感线",
-      has:{label:"情感线完整",power:"情感智慧出众，直觉力强。人际关系处理能力突出，能感知他人需求，在需要情商的场合如鱼得水。"},
+      has:{label:"情感线圆满",power:"情感智慧出众，直觉力强。人际关系处理能力突出，能感知他人需求，在需要情商的场合如鱼得水。"},
       miss:{label:"情感线缺失",note:"人际关系可能需要更多有意识的经营。建议主动练习共情与表达，不要让逻辑盖过感受。"}},
     {nums:[1,4,7],name:"学习线",
-      has:{label:"学习线完整",power:"记忆力强，逻辑清晰，财富意识稳健。善于系统性学习，能把知识转化为实际能力，与财运及事业积累密切相关。"},
+      has:{label:"学习线圆满",power:"记忆力强，逻辑清晰，财富意识稳健。善于系统性学习，能把知识转化为实际能力，与财运及事业积累密切相关。"},
       miss:{label:"学习线缺失",note:"学习与记忆可能需要更多刻意练习。建议建立固定的学习习惯，用外部结构弥补内在驱动的不足。"}},
     {nums:[3,2,1],name:"行动线",
-      has:{label:"行动线完整",power:"执行力强，敢于开拓，行动果断。不只是说，而是真的去做，能在短时间内把想法变成现实。"},
+      has:{label:"行动线圆满",power:"执行力强，敢于开拓，行动果断。不只是说，而是真的去做，能在短时间内把想法变成现实。"},
       miss:{label:"行动线缺失",note:"从想法到行动可能有阻力。建议用\"最小行动原则\"——把目标拆解到最小的第一步，让启动更容易。"}},
     {nums:[6,5,4],name:"意志线",
-      has:{label:"意志线完整",power:"意志力坚韧，逆境中稳如磐石。拥有持续前行的内在驱动力，不轻易被挫折打倒，是长跑型的成功者。"},
+      has:{label:"意志线圆满",power:"意志力坚韧，逆境中稳如磐石。拥有持续前行的内在驱动力，不轻易被挫折打倒，是长跑型的成功者。"},
       miss:{label:"意志线缺失",note:"持续坚持可能是挑战。建议寻找一个核心价值观作为锚点——当外在动力不足时，让内在信念撑着你走。"}},
     {nums:[9,8,7],name:"实践线",
-      has:{label:"实践线完整",power:"务实高效，能将理想落地。善于把宏大的愿景拆解为可执行的步骤，结果导向。"},
+      has:{label:"实践线圆满",power:"务实高效，能将理想落地。善于把宏大的愿景拆解为可执行的步骤，结果导向。"},
       miss:{label:"实践线缺失",note:"将想法落地可能需要更多支持。建议找一个执行力强的伙伴合作，或者专门练习\"完成一件小事\"的习惯。"}},
     {nums:[3,5,7],name:"智慧表达线",
-      has:{label:"智慧表达线完整",power:"洞察力与表达力并驾齐驱，是天生的老师、演讲者与作家。能把深刻的洞见用感染力强的方式传递出去，极具说服力。"},
+      has:{label:"智慧表达线圆满",power:"洞察力与表达力并驾齐驱，是天生的老师、演讲者与作家。能把深刻的洞见用感染力强的方式传递出去，极具说服力。"},
       miss:{label:"智慧表达线缺失",note:"将内在洞察转化为有力表达可能需要练习。建议从写日记或分享开始，逐步建立把思想外化的能力。"}},
     {nums:[1,5,9],name:"中心线",
-      has:{label:"中心线完整",power:"核心能量强大，自我与使命高度统一。内在力量充沛，人生目标清晰，能把个人意志与更大的使命感融为一体。"},
+      has:{label:"中心线圆满",power:"核心能量强大，自我与使命高度统一。内在力量充沛，人生目标清晰，能把个人意志与更大的使命感融为一体。"},
       miss:{label:"中心线缺失",note:"个人意志与人生使命的连接可能需要刻意建立。建议定期静下来问：我真正想要的是什么？这件事对更大的意义是什么？"}}
   ],
   en:[
     {nums:[3,6,9],name:"Mind Line",
-      has:{label:"Mind Line Active",power:"Active thinking, rich creativity, exceptional imagination. Excels in education, arts and creation, able to transform abstract ideas into moving expression."},
+      has:{label:"Mind Line Perfect",power:"Active thinking, rich creativity, exceptional imagination. Excels in education, arts and creation, able to transform abstract ideas into moving expression."},
       miss:{label:"Mind Line Absent",note:"Creative expression may need more practice. Try writing, drawing, or any creative activity to develop your inner expressive potential."}},
     {nums:[2,5,8],name:"Emotion Line",
-      has:{label:"Emotion Line Active",power:"Outstanding emotional intelligence, strong intuition. Excels in managing relationships, attuned to others' needs, thrives wherever emotional intelligence is required."},
+      has:{label:"Emotion Line Perfect",power:"Outstanding emotional intelligence, strong intuition. Excels in managing relationships, attuned to others' needs, thrives wherever emotional intelligence is required."},
       miss:{label:"Emotion Line Absent",note:"Relationships may need more conscious cultivation. Practice empathy and expression — don't let logic override feeling."}},
     {nums:[1,4,7],name:"Learning Line",
-      has:{label:"Learning Line Active",power:"Strong memory, clear logic, solid wealth consciousness. Learns systematically and translates knowledge into practical ability — closely linked to career growth and financial building."},
+      has:{label:"Learning Line Perfect",power:"Strong memory, clear logic, solid wealth consciousness. Learns systematically and translates knowledge into practical ability — closely linked to career growth and financial building."},
       miss:{label:"Learning Line Absent",note:"Learning and retention may need deliberate practice. Build a consistent study habit — use external structure to supplement inner drive."}},
     {nums:[3,2,1],name:"Action Line",
-      has:{label:"Action Line Active",power:"Strong execution, bold pioneering, decisive action. You don't just talk — you do. You can turn ideas into reality in a short time."},
+      has:{label:"Action Line Perfect",power:"Strong execution, bold pioneering, decisive action. You don't just talk — you do. You can turn ideas into reality in a short time."},
       miss:{label:"Action Line Absent",note:"There may be resistance between idea and action. Try the 'minimum action principle' — break goals into the smallest possible first step to make starting easier."}},
     {nums:[6,5,4],name:"Will Line",
-      has:{label:"Will Line Active",power:"Iron willpower, unshakeable in adversity. You carry an inner drive that sustains forward movement — not easily defeated by setbacks. A long-distance success type."},
+      has:{label:"Will Line Perfect",power:"Iron willpower, unshakeable in adversity. You carry an inner drive that sustains forward movement — not easily defeated by setbacks. A long-distance success type."},
       miss:{label:"Will Line Absent",note:"Sustained persistence may be a challenge. Find a core value to serve as your anchor — when external motivation fades, let inner conviction carry you."}},
     {nums:[9,8,7],name:"Practice Line",
-      has:{label:"Practice Line Active",power:"Practical and efficient, able to ground ideals into reality. Excels at breaking grand visions into executable steps — results-oriented."},
+      has:{label:"Practice Line Perfect",power:"Practical and efficient, able to ground ideals into reality. Excels at breaking grand visions into executable steps — results-oriented."},
       miss:{label:"Practice Line Absent",note:"Landing ideas may need more support. Consider finding a strong executor to partner with, or build the habit of 'completing one small thing' deliberately."}},
     {nums:[3,5,7],name:"Wisdom-Expression Line",
-      has:{label:"Wisdom-Expression Line Active",power:"Insight and expression move in perfect tandem — a natural teacher, speaker, and writer. You can convey profound insights in deeply moving ways, with remarkable persuasive power."},
+      has:{label:"Wisdom-Expression Line Perfect",power:"Insight and expression move in perfect tandem — a natural teacher, speaker, and writer. You can convey profound insights in deeply moving ways, with remarkable persuasive power."},
       miss:{label:"Wisdom-Expression Line Absent",note:"Translating inner insight into powerful expression may need practice. Start with journaling or sharing — gradually build the ability to externalize your thoughts."}},
     {nums:[1,5,9],name:"Central Line",
-      has:{label:"Central Line Active",power:"Powerful core energy, self and mission in high alignment. Abundant inner strength, clear life purpose — able to fuse personal will with a greater sense of mission."},
+      has:{label:"Central Line Perfect",power:"Powerful core energy, self and mission in high alignment. Abundant inner strength, clear life purpose — able to fuse personal will with a greater sense of mission."},
       miss:{label:"Central Line Absent",note:"The link between personal will and life mission may need deliberate building. Regularly pause to ask: what do I truly want? What greater meaning does this serve?"}}
   ],
   fr:[
     {nums:[3,6,9],name:"Ligne Mentale",
-      has:{label:"Ligne Mentale Active",power:"Pensée active, créativité riche, imagination exceptionnelle. Excelle dans l'éducation, les arts et la création, capable de transformer des idées abstraites en expression touchante."},
+      has:{label:"Ligne Mentale Parfaite",power:"Pensée active, créativité riche, imagination exceptionnelle. Excelle dans l'éducation, les arts et la création, capable de transformer des idées abstraites en expression touchante."},
       miss:{label:"Ligne Mentale Absente",note:"L'expression créative peut nécessiter plus de pratique. Essayez l'écriture, le dessin ou toute activité créative pour développer votre potentiel expressif intérieur."}},
     {nums:[2,5,8],name:"Ligne Émotionnelle",
-      has:{label:"Ligne Émotionnelle Active",power:"Intelligence émotionnelle remarquable, forte intuition. Excelle dans la gestion des relations, à l'écoute des besoins des autres, s'épanouit où l'intelligence émotionnelle est requise."},
+      has:{label:"Ligne Émotionnelle Parfaite",power:"Intelligence émotionnelle remarquable, forte intuition. Excelle dans la gestion des relations, à l'écoute des besoins des autres, s'épanouit où l'intelligence émotionnelle est requise."},
       miss:{label:"Ligne Émotionnelle Absente",note:"Les relations peuvent nécessiter une cultivation plus consciente. Pratiquez l'empathie et l'expression — ne laissez pas la logique prendre le dessus sur le ressenti."}},
     {nums:[1,4,7],name:"Ligne d'Apprentissage",
-      has:{label:"Ligne d'Apprentissage Active",power:"Mémoire forte, logique claire, conscience financière solide. Apprend systématiquement et traduit le savoir en capacité pratique — étroitement lié à la croissance professionnelle."},
+      has:{label:"Ligne d'Apprentissage Parfaite",power:"Mémoire forte, logique claire, conscience financière solide. Apprend systématiquement et traduit le savoir en capacité pratique — étroitement lié à la croissance professionnelle."},
       miss:{label:"Ligne d'Apprentissage Absente",note:"L'apprentissage et la rétention peuvent nécessiter une pratique délibérée. Construisez une habitude d'étude cohérente."}},
     {nums:[3,2,1],name:"Ligne d'Action",
-      has:{label:"Ligne d'Action Active",power:"Forte exécution, pionnier audacieux, action décisive. Vous ne faites pas que parler — vous faites. Vous pouvez transformer des idées en réalité rapidement."},
+      has:{label:"Ligne d'Action Parfaite",power:"Forte exécution, pionnier audacieux, action décisive. Vous ne faites pas que parler — vous faites. Vous pouvez transformer des idées en réalité rapidement."},
       miss:{label:"Ligne d'Action Absente",note:"Il peut y avoir une résistance entre l'idée et l'action. Essayez le 'principe d'action minimale' — décomposez les objectifs en la plus petite première étape possible."}},
     {nums:[6,5,4],name:"Ligne de Volonté",
-      has:{label:"Ligne de Volonté Active",power:"Volonté de fer, inébranlable dans l'adversité. Vous portez une force intérieure qui soutient l'avancement — pas facilement vaincu par les revers."},
+      has:{label:"Ligne de Volonté Parfaite",power:"Volonté de fer, inébranlable dans l'adversité. Vous portez une force intérieure qui soutient l'avancement — pas facilement vaincu par les revers."},
       miss:{label:"Ligne de Volonté Absente",note:"La persévérance soutenue peut être un défi. Trouvez une valeur centrale pour servir d'ancre."}},
     {nums:[9,8,7],name:"Ligne de Pratique",
-      has:{label:"Ligne de Pratique Active",power:"Pratique et efficace, capable d'ancrer les idéaux dans la réalité. Excelle à décomposer de grandes visions en étapes exécutables — orienté résultats."},
+      has:{label:"Ligne de Pratique Parfaite",power:"Pratique et efficace, capable d'ancrer les idéaux dans la réalité. Excelle à décomposer de grandes visions en étapes exécutables — orienté résultats."},
       miss:{label:"Ligne de Pratique Absente",note:"Concrétiser les idées peut nécessiter plus de soutien. Envisagez de trouver un partenaire exécutif fort."}},
     {nums:[3,5,7],name:"Ligne Sagesse-Expression",
-      has:{label:"Ligne Sagesse-Expression Active",power:"Perspicacité et expression progressent en parfaite harmonie — enseignant, orateur et écrivain naturel. Vous pouvez transmettre des insights profonds de manière profondément touchante."},
+      has:{label:"Ligne Sagesse-Expression Parfaite",power:"Perspicacité et expression progressent en parfaite harmonie — enseignant, orateur et écrivain naturel. Vous pouvez transmettre des insights profonds de manière profondément touchante."},
       miss:{label:"Ligne Sagesse-Expression Absente",note:"Traduire l'insight intérieur en expression puissante peut nécessiter de la pratique. Commencez par tenir un journal ou partager."}},
     {nums:[1,5,9],name:"Ligne Centrale",
-      has:{label:"Ligne Centrale Active",power:"Énergie centrale puissante, soi et mission en haute harmonie. Force intérieure abondante, but de vie clair — capable de fusionner la volonté personnelle avec un plus grand sens de la mission."},
+      has:{label:"Ligne Centrale Parfaite",power:"Énergie centrale puissante, soi et mission en haute harmonie. Force intérieure abondante, but de vie clair — capable de fusionner la volonté personnelle avec un plus grand sens de la mission."},
       miss:{label:"Ligne Centrale Absente",note:"Le lien entre la volonté personnelle et la mission de vie peut nécessiter une construction délibérée."}}
   ]
 };
@@ -828,7 +841,12 @@ function renderUI(){
 // ══════════════════════════════════════════════════════
 let lastResult=null;
 function reduce(n){while(n>9){n=String(n).split('').reduce((a,b)=>a+parseInt(b),0);}return n;}
-function go(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s'+n).classList.add('active');window.scrollTo(0,0);}
+function go(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const target=document.getElementById('s'+n);
+  target.scrollTop=0;
+  target.classList.add('active');
+}
 
 function calculate(){
   const u=UI[LANG];
@@ -893,7 +911,7 @@ function renderResult(name,y,m,d,tianfu,shengming){
   const lineHtml=lineResults.map(l=>`
     <div class="line-item">
       <div class="line-header">
-        <span class="line-badge ${l.has?'line-has':'line-missing'}">${l.has?u.lineHas:u.lineMiss}</span>
+        <span class="line-badge ${l.has?'line-has':'line-missing'}">${l.has?(l.has.label||u.lineHas):(l.miss.label||u.lineMiss)}</span>
         <span class="line-name">${l.name} (${l.nums.join('-')})</span>
       </div>
       ${l.has?`<div class="line-desc">${l.has.power}</div>`:`<div class="line-power">${l.miss.note}</div>`}
